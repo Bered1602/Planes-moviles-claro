@@ -6,23 +6,85 @@
     <title>Planes Claro</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { background: #1a1a1a; color: white; font-family: Arial, sans-serif; }
-        header { background: #cc0000; padding: 20px; text-align: center; }
-        header h1 { font-size: 28px; }
-        .contenido { padding: 30px; max-width: 1200px; margin: auto; }
-        h2 { color: #cc0000; margin: 30px 0 15px; font-size: 22px; }
+        body { background: #111111; color: white; font-family: 'Segoe UI', Arial, sans-serif; }
+
+        header {
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 50%, #0a0a0a 100%);
+            padding: 30px 40px;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            border-bottom: 2px solid #cc0000;
+        }
+        header .logo { color: #cc0000; font-size: 36px; }
+        header .titulo h1 { font-size: 24px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; }
+        header .titulo p { color: #888; font-size: 13px; letter-spacing: 1px; margin-top: 3px; }
+
+        .contenido { padding: 40px; max-width: 1200px; margin: auto; }
+
+        h2 {
+            color: #ffffff;
+            font-size: 14px;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            margin: 30px 0 20px;
+            padding-left: 12px;
+            border-left: 3px solid #cc0000;
+        }
+
         .planes { display: flex; flex-wrap: wrap; gap: 20px; }
-        .plan { background: #2a2a2a; border-radius: 10px; padding: 20px; width: 280px; }
-        .plan h3 { color: #cc0000; margin-bottom: 10px; }
-        .precio { background: #3a0000; text-align: center; padding: 15px; border-radius: 8px; margin: 10px 0; font-size: 26px; font-weight: bold; }
-        .plan p { margin: 5px 0; font-size: 14px; color: #ccc; }
-        .plan p span { color: white; font-weight: bold; }
+
+        .plan {
+            background: #1c1c1c;
+            border-radius: 12px;
+            padding: 22px;
+            width: 260px;
+            border: 1px solid #2a2a2a;
+            cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+        }
+        .plan::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 10%;
+            width: 80%;
+            height: 6px;
+            background: radial-gradient(ellipse, #cc0000 0%, transparent 70%);
+            border-radius: 50%;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        .plan:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+        .plan:hover::after { opacity: 1; }
+
+        .plan h3 { color: #cc0000; margin-bottom: 12px; font-size: 15px; }
+        .precio {
+            background: linear-gradient(145deg, #1a0000, #2a0000);
+            text-align: center;
+            padding: 14px;
+            border-radius: 8px;
+            margin: 10px 0;
+            font-size: 28px;
+            font-weight: bold;
+            border: 1px solid #3a0000;
+        }
+        .plan p { margin: 6px 0; font-size: 13px; color: #999; }
+        .plan p span { color: #ddd; font-weight: 600; }
     </style>
 </head>
 <body>
 
 <header>
-    <h1>📱 Planes Claro - Portafolio Asesores</h1>
+    <div class="logo">📡</div>
+    <div class="titulo">
+        <h1>Claro Colombia</h1>
+        <p>Portafolio de Planes — Uso Interno Asesores</p>
+    </div>
 </header>
 
 <div class="contenido">
