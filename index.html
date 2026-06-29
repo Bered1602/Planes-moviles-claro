@@ -19,24 +19,10 @@
             text-align: center;
             gap: 20px;
         }
-        #inicio .linea-roja {
-            width: 60px;
-            height: 4px;
-            background: #cc0000;
-            border-radius: 2px;
-        }
-        #inicio h1 {
-            font-size: 36px;
-            font-weight: 700;
-            letter-spacing: 3px;
-            text-transform: uppercase;
-        }
+        #inicio .linea-roja { width: 60px; height: 4px; background: #cc0000; border-radius: 2px; }
+        #inicio h1 { font-size: 36px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; }
         #inicio h1 span { color: #cc0000; }
-        #inicio p {
-            color: #888;
-            font-size: 15px;
-            letter-spacing: 1px;
-        }
+        #inicio p { color: #888; font-size: 15px; letter-spacing: 1px; }
         #inicio button {
             margin-top: 20px;
             padding: 16px 40px;
@@ -51,10 +37,7 @@
             cursor: pointer;
             transition: background 0.3s ease, transform 0.2s ease;
         }
-        #inicio button:hover {
-            background: #aa0000;
-            transform: scale(1.05);
-        }
+        #inicio button:hover { background: #aa0000; transform: scale(1.05); }
 
         /* PLANES */
         #planes { display: none; }
@@ -82,16 +65,43 @@
         }
         header .volver:hover { background: #cc0000; color: white; }
 
-        .contenido { padding: 40px; max-width: 1200px; margin: auto; }
-        h2 {
+        /* CATEGORÍAS */
+        .categorias {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            padding: 25px 40px 0;
+            max-width: 1200px;
+            margin: auto;
+        }
+        .cat-btn {
+            padding: 8px 20px;
+            border-radius: 20px;
+            border: 1px solid #333;
+            background: transparent;
+            color: #aaa;
+            font-size: 13px;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .cat-btn:hover { border-color: #cc0000; color: white; }
+        .cat-btn.activo { background: #cc0000; border-color: #cc0000; color: white; }
+
+        .contenido { padding: 30px 40px; max-width: 1200px; margin: auto; }
+
+        .seccion { margin-bottom: 40px; }
+        .seccion h2 {
             color: #ffffff;
             font-size: 13px;
             letter-spacing: 3px;
             text-transform: uppercase;
-            margin: 30px 0 20px;
+            margin-bottom: 20px;
             padding-left: 12px;
             border-left: 3px solid #cc0000;
         }
+
         .planes-grid { display: flex; flex-wrap: wrap; gap: 20px; }
         .plan {
             background: #1c1c1c;
@@ -130,6 +140,8 @@
         }
         .plan p { margin: 6px 0; font-size: 13px; color: #999; }
         .plan p span { color: #ddd; font-weight: 600; }
+
+        .oculto { display: none; }
     </style>
 </head>
 <body>
@@ -147,25 +159,151 @@
 <div id="planes">
     <header>
         <div class="titulo">
-            <h1>Migracion</h1>
+            <h1>Claro Colombia</h1>
             <p>Portafolio de Planes — Uso Interno Asesores</p>
         </div>
         <button class="volver" onclick="volver()">← Volver</button>
     </header>
 
+    <!-- CATEGORÍAS -->
+    <div class="categorias">
+        <button class="cat-btn activo" onclick="filtrar('todos', this)">Todos</button>
+        <button class="cat-btn" onclick="filtrar('standart', this)">Standart</button>
+        <button class="cat-btn" onclick="filtrar('bundle', this)">Bundle</button>
+        <button class="cat-btn" onclick="filtrar('todo-claro', this)">Todo Claro</button>
+        <button class="cat-btn" onclick="filtrar('winsport', this)">Winsport</button>
+        <button class="cat-btn" onclick="filtrar('streaming', this)">Streaming</button>
+        <button class="cat-btn" onclick="filtrar('power', this)">Power</button>
+    </div>
+
     <div class="contenido">
-        <h2>Planes Móviles</h2>
-        <div class="planes-grid">
 
-            <div class="plan">
-                <h3>Plan Ejemplo 1</h3>
-                <div class="precio">$00.000</div>
-                <p><span>GB:</span> 00 GB</p>
-                <p><span>Minutos:</span> Ilimitados</p>
-                <p><span>SMS:</span> Ilimitados</p>
+        <!-- STANDART -->
+        <div class="seccion" data-cat="standart">
+            <h2>Standart</h2>
+            <div class="planes-grid">
+                <div class="plan">
+                    <h3>Standart Ejemplo 1</h3>
+                    <div class="precio">$00.000</div>
+                    <p><span>GB:</span> 00 GB</p>
+                    <p><span>Minutos:</span> Ilimitados</p>
+                    <p><span>SMS:</span> Ilimitados</p>
+                </div>
+                <div class="plan">
+                    <h3>Standart Ejemplo 2</h3>
+                    <div class="precio">$00.000</div>
+                    <p><span>GB:</span> 00 GB</p>
+                    <p><span>Minutos:</span> Ilimitados</p>
+                    <p><span>SMS:</span> Ilimitados</p>
+                </div>
             </div>
-
         </div>
+
+        <!-- BUNDLE -->
+        <div class="seccion" data-cat="bundle">
+            <h2>Bundle</h2>
+            <div class="planes-grid">
+                <div class="plan">
+                    <h3>Bundle Ejemplo 1</h3>
+                    <div class="precio">$00.000</div>
+                    <p><span>GB:</span> 00 GB</p>
+                    <p><span>Minutos:</span> Ilimitados</p>
+                    <p><span>SMS:</span> Ilimitados</p>
+                </div>
+                <div class="plan">
+                    <h3>Bundle Ejemplo 2</h3>
+                    <div class="precio">$00.000</div>
+                    <p><span>GB:</span> 00 GB</p>
+                    <p><span>Minutos:</span> Ilimitados</p>
+                    <p><span>SMS:</span> Ilimitados</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- TODO CLARO -->
+        <div class="seccion" data-cat="todo-claro">
+            <h2>Todo Claro</h2>
+            <div class="planes-grid">
+                <div class="plan">
+                    <h3>Todo Claro Ejemplo 1</h3>
+                    <div class="precio">$00.000</div>
+                    <p><span>GB:</span> 00 GB</p>
+                    <p><span>Minutos:</span> Ilimitados</p>
+                    <p><span>SMS:</span> Ilimitados</p>
+                </div>
+                <div class="plan">
+                    <h3>Todo Claro Ejemplo 2</h3>
+                    <div class="precio">$00.000</div>
+                    <p><span>GB:</span> 00 GB</p>
+                    <p><span>Minutos:</span> Ilimitados</p>
+                    <p><span>SMS:</span> Ilimitados</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- WINSPORT -->
+        <div class="seccion" data-cat="winsport">
+            <h2>Winsport</h2>
+            <div class="planes-grid">
+                <div class="plan">
+                    <h3>Winsport Ejemplo 1</h3>
+                    <div class="precio">$00.000</div>
+                    <p><span>GB:</span> 00 GB</p>
+                    <p><span>Minutos:</span> Ilimitados</p>
+                    <p><span>SMS:</span> Ilimitados</p>
+                </div>
+                <div class="plan">
+                    <h3>Winsport Ejemplo 2</h3>
+                    <div class="precio">$00.000</div>
+                    <p><span>GB:</span> 00 GB</p>
+                    <p><span>Minutos:</span> Ilimitados</p>
+                    <p><span>SMS:</span> Ilimitados</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- STREAMING -->
+        <div class="seccion" data-cat="streaming">
+            <h2>Streaming</h2>
+            <div class="planes-grid">
+                <div class="plan">
+                    <h3>Streaming Ejemplo 1</h3>
+                    <div class="precio">$00.000</div>
+                    <p><span>GB:</span> 00 GB</p>
+                    <p><span>Minutos:</span> Ilimitados</p>
+                    <p><span>SMS:</span> Ilimitados</p>
+                </div>
+                <div class="plan">
+                    <h3>Streaming Ejemplo 2</h3>
+                    <div class="precio">$00.000</div>
+                    <p><span>GB:</span> 00 GB</p>
+                    <p><span>Minutos:</span> Ilimitados</p>
+                    <p><span>SMS:</span> Ilimitados</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- POWER -->
+        <div class="seccion" data-cat="power">
+            <h2>Power</h2>
+            <div class="planes-grid">
+                <div class="plan">
+                    <h3>Power Ejemplo 1</h3>
+                    <div class="precio">$00.000</div>
+                    <p><span>GB:</span> 00 GB</p>
+                    <p><span>Minutos:</span> Ilimitados</p>
+                    <p><span>SMS:</span> Ilimitados</p>
+                </div>
+                <div class="plan">
+                    <h3>Power Ejemplo 2</h3>
+                    <div class="precio">$00.000</div>
+                    <p><span>GB:</span> 00 GB</p>
+                    <p><span>Minutos:</span> Ilimitados</p>
+                    <p><span>SMS:</span> Ilimitados</p>
+                </div>
+            </div>
+        </div>
+
     </div>
 </div>
 
@@ -177,6 +315,17 @@
     function volver() {
         document.getElementById('planes').style.display = 'none';
         document.getElementById('inicio').style.display = 'flex';
+    }
+    function filtrar(cat, btn) {
+        document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('activo'));
+        btn.classList.add('activo');
+        document.querySelectorAll('.seccion').forEach(s => {
+            if (cat === 'todos' || s.dataset.cat === cat) {
+                s.classList.remove('oculto');
+            } else {
+                s.classList.add('oculto');
+            }
+        });
     }
 </script>
 
