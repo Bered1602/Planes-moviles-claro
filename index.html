@@ -71,7 +71,7 @@
             flex-wrap: wrap;
             gap: 10px;
             padding: 25px 40px 0;
-            max-width: 1200px;
+            max-width: 1400px;
             margin: auto;
         }
         .cat-btn {
@@ -89,30 +89,22 @@
         .cat-btn:hover { border-color: #cc0000; color: white; }
         .cat-btn.activo { background: #cc0000; border-color: #cc0000; color: white; }
 
-        .contenido { padding: 30px 40px; max-width: 1200px; margin: auto; }
-
+        .contenido { padding: 30px 40px; max-width: 1400px; margin: auto; }
         .seccion { margin-bottom: 40px; }
-        .seccion h2 {
-            color: #ffffff;
-            font-size: 13px;
-            letter-spacing: 3px;
-            text-transform: uppercase;
-            margin-bottom: 20px;
-            padding-left: 12px;
-            border-left: 3px solid #cc0000;
-        }
 
         .planes-grid { display: flex; flex-wrap: wrap; gap: 20px; }
+
+        /* TARJETA */
         .plan {
             background: #1c1c1c;
             border-radius: 12px;
-            padding: 22px;
-            width: 260px;
+            width: 280px;
             border: 1px solid #2a2a2a;
-            cursor: pointer;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
             position: relative;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            overflow: hidden;
         }
+        .plan.todo-claro-card { border: 1px solid #b8860b; }
         .plan::after {
             content: '';
             position: absolute;
@@ -125,21 +117,147 @@
             opacity: 0;
             transition: opacity 0.3s ease;
         }
+        .plan.todo-claro-card::after { background: radial-gradient(ellipse, #b8860b 0%, transparent 70%); }
         .plan:hover { transform: translateY(-6px); box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
         .plan:hover::after { opacity: 1; }
-        .plan h3 { color: #cc0000; margin-bottom: 12px; font-size: 15px; }
+
+        /* BANNER SUPERIOR */
+        .plan-banner {
+            padding: 18px 18px 14px;
+            border-bottom: 1px solid #2a2a2a;
+        }
+        .plan-tmcode { font-size: 10px; color: #666; letter-spacing: 1px; margin-bottom: 4px; }
+        .plan-nombre { color: #cc0000; font-size: 13px; font-weight: 700; margin-bottom: 12px; }
+        .todo-claro-card .plan-nombre { color: #b8860b; }
         .precio {
             background: linear-gradient(145deg, #1a0000, #2a0000);
             text-align: center;
-            padding: 14px;
+            padding: 12px;
             border-radius: 8px;
-            margin: 10px 0;
-            font-size: 28px;
+            margin-bottom: 12px;
+            font-size: 26px;
             font-weight: bold;
             border: 1px solid #3a0000;
         }
-        .plan p { margin: 6px 0; font-size: 13px; color: #999; }
-        .plan p span { color: #ddd; font-weight: 600; }
+        .todo-claro-card .precio { background: linear-gradient(145deg, #1a1000, #2a1800); border-color: #3a2800; }
+
+        .info-rapida {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 6px;
+            margin-bottom: 12px;
+        }
+        .info-item {
+            background: #141414;
+            border-radius: 6px;
+            padding: 7px 8px;
+            font-size: 11px;
+        }
+        .info-item .label { color: #666; font-size: 10px; margin-bottom: 2px; }
+        .info-item .valor { color: #ddd; font-weight: 600; }
+
+        .btn-beneficios {
+            width: 100%;
+            padding: 10px;
+            background: transparent;
+            border: 1px solid #333;
+            color: #aaa;
+            border-radius: 6px;
+            font-size: 12px;
+            cursor: pointer;
+            letter-spacing: 1px;
+            transition: all 0.3s;
+            text-transform: uppercase;
+        }
+        .btn-beneficios:hover { border-color: #cc0000; color: white; background: #1a0000; }
+        .todo-claro-card .btn-beneficios:hover { border-color: #b8860b; background: #1a1000; }
+
+        /* MODAL DE BENEFICIOS */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: rgba(0,0,0,0.75);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+            animation: fadeIn 0.2s ease;
+        }
+        .modal-overlay.abierto { display: flex; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+        .modal {
+            background: #1c1c1c;
+            border-radius: 14px;
+            width: 420px;
+            max-width: 90vw;
+            max-height: 80vh;
+            overflow-y: auto;
+            border: 1px solid #2a2a2a;
+            animation: slideUp 0.25s ease;
+        }
+        .modal.todo-claro-modal { border-color: #b8860b; }
+        @keyframes slideUp { from { transform: translateY(20px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+
+        .modal-header {
+            padding: 20px 20px 16px;
+            border-bottom: 1px solid #2a2a2a;
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            position: sticky;
+            top: 0;
+            background: #1c1c1c;
+            border-radius: 14px 14px 0 0;
+        }
+        .modal-header .modal-titulo { color: #cc0000; font-size: 15px; font-weight: 700; }
+        .modal.todo-claro-modal .modal-header .modal-titulo { color: #b8860b; }
+        .modal-header .modal-tmcode { font-size: 10px; color: #666; margin-top: 3px; }
+        .modal-header .modal-precio { font-size: 22px; font-weight: bold; margin-top: 6px; }
+        .modal-cerrar {
+            background: transparent;
+            border: none;
+            color: #666;
+            font-size: 22px;
+            cursor: pointer;
+            padding: 0 4px;
+            line-height: 1;
+            transition: color 0.2s;
+        }
+        .modal-cerrar:hover { color: white; }
+
+        .modal-body { padding: 18px 20px 22px; }
+
+        .beneficio-grupo { margin-bottom: 16px; }
+        .beneficio-titulo { font-size: 10px; color: #666; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 8px; }
+        .beneficio-item { font-size: 13px; color: #bbb; padding: 4px 0; display: flex; align-items: center; gap: 8px; }
+        .beneficio-item::before { content: '•'; color: #cc0000; font-size: 16px; flex-shrink: 0; }
+        .todo-claro-modal .beneficio-item::before { color: #b8860b; }
+
+        .descuentos { margin-top: 4px; }
+        .desc-titulo { font-size: 10px; color: #666; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 8px; }
+        .desc-item {
+            background: #141414;
+            border-radius: 6px;
+            padding: 10px 12px;
+            margin-bottom: 8px;
+            font-size: 12px;
+        }
+        .desc-item .desc-label { color: #888; margin-bottom: 3px; }
+        .desc-item .desc-precio { color: #cc0000; font-weight: 700; font-size: 16px; }
+
+        .badge-especial {
+            display: inline-block;
+            background: #b8860b;
+            color: #000;
+            font-size: 10px;
+            font-weight: 700;
+            padding: 3px 8px;
+            border-radius: 4px;
+            letter-spacing: 1px;
+            margin-bottom: 10px;
+        }
 
         .oculto { display: none; }
     </style>
@@ -165,145 +283,1166 @@
         <button class="volver" onclick="volver()">← Volver</button>
     </header>
 
-    <!-- CATEGORÍAS -->
     <div class="categorias">
         <button class="cat-btn activo" onclick="filtrar('todos', this)">Todos</button>
-        <button class="cat-btn" onclick="filtrar('standart', this)">Standart</button>
+        <button class="cat-btn" onclick="filtrar('standart', this)">Estándar</button>
         <button class="cat-btn" onclick="filtrar('bundle', this)">Bundle</button>
         <button class="cat-btn" onclick="filtrar('todo-claro', this)">Todo Claro</button>
-        <button class="cat-btn" onclick="filtrar('winsport', this)">Winsport</button>
+        <button class="cat-btn" onclick="filtrar('winsport', this)">Win Play</button>
         <button class="cat-btn" onclick="filtrar('streaming', this)">Streaming</button>
         <button class="cat-btn" onclick="filtrar('power', this)">Power</button>
     </div>
 
     <div class="contenido">
+        <div class="planes-grid" id="grid-planes">
 
-        <!-- STANDART -->
-        <div class="seccion" data-cat="standart">
-            <h2>Standart</h2>
-            <div class="planes-grid">
-                <div class="plan">
-                    <h3>Standart Ejemplo 1</h3>
-                    <div class="precio">$00.000</div>
-                    <p><span>GB:</span> 00 GB</p>
-                    <p><span>Minutos:</span> Ilimitados</p>
-                    <p><span>SMS:</span> Ilimitados</p>
+            <!-- ===================== TODO CLARO ===================== -->
+            <div class="plan todo-claro-card" data-cat="todo-claro" data-precio="41900">
+                <div class="plan-banner">
+                    <div class="plan-tmcode">TMCODE: 36793</div>
+                    <div class="plan-nombre">Conectados 26 E 4.1</div>
+                    <div class="badge-especial">⭐ TODO CLARO</div>
+                    <div class="precio">$41.900</div>
+                    <div class="info-rapida">
+                        <div class="info-item"><div class="label">Navegación</div><div class="valor">Libre</div></div>
+                        <div class="info-item"><div class="label">Compartir</div><div class="valor">60 GB</div></div>
+                        <div class="info-item"><div class="label">Minutos</div><div class="valor">Ilimitados</div></div>
+                        <div class="info-item"><div class="label">SMS</div><div class="valor">Ilimitados</div></div>
+                    </div>
+                    <button class="btn-beneficios" onclick="abrirBeneficios(this)">Ver beneficios ▾</button>
                 </div>
-                <div class="plan">
-                    <h3>Standart Ejemplo 2</h3>
-                    <div class="precio">$00.000</div>
-                    <p><span>GB:</span> 00 GB</p>
-                    <p><span>Minutos:</span> Ilimitados</p>
-                    <p><span>SMS:</span> Ilimitados</p>
+                <div class="beneficios" style="display:none">
+                    <div class="beneficio-grupo">
+                        <div class="beneficio-titulo">Aplicaciones incluidas</div>
+                        <div class="beneficio-item">Claro Video</div>
+                        <div class="beneficio-item">Claro Música</div>
+                        <div class="beneficio-item">Claro Club</div>
+                        <div class="beneficio-item">Claro Drive</div>
+                    </div>
                 </div>
             </div>
-        </div>
 
-        <!-- BUNDLE -->
-        <div class="seccion" data-cat="bundle">
-            <h2>Bundle</h2>
-            <div class="planes-grid">
-                <div class="plan">
-                    <h3>Bundle Ejemplo 1</h3>
-                    <div class="precio">$00.000</div>
-                    <p><span>GB:</span> 00 GB</p>
-                    <p><span>Minutos:</span> Ilimitados</p>
-                    <p><span>SMS:</span> Ilimitados</p>
+            <div class="plan todo-claro-card" data-cat="todo-claro" data-precio="46900">
+                <div class="plan-banner">
+                    <div class="plan-tmcode">TMCODE: 37217</div>
+                    <div class="plan-nombre">Conectados 26.1 E 46.9_AP1</div>
+                    <div class="badge-especial">⭐ TODO CLARO</div>
+                    <div class="precio">$46.900</div>
+                    <div class="info-rapida">
+                        <div class="info-item"><div class="label">Navegación</div><div class="valor">Libre</div></div>
+                        <div class="info-item"><div class="label">Compartir</div><div class="valor">60 GB</div></div>
+                        <div class="info-item"><div class="label">Minutos</div><div class="valor">Ilimitados</div></div>
+                        <div class="info-item"><div class="label">SMS</div><div class="valor">Ilimitados</div></div>
+                    </div>
+                    <button class="btn-beneficios" onclick="abrirBeneficios(this)">Ver beneficios ▾</button>
                 </div>
-                <div class="plan">
-                    <h3>Bundle Ejemplo 2</h3>
-                    <div class="precio">$00.000</div>
-                    <p><span>GB:</span> 00 GB</p>
-                    <p><span>Minutos:</span> Ilimitados</p>
-                    <p><span>SMS:</span> Ilimitados</p>
+                <div class="beneficios" style="display:none">
+                    <div class="beneficio-grupo">
+                        <div class="beneficio-titulo">Beneficios adicionales</div>
+                        <div class="beneficio-item">Amazon Prime ($5.000)</div>
+                    </div>
+                    <div class="beneficio-grupo">
+                        <div class="beneficio-titulo">Aplicaciones incluidas</div>
+                        <div class="beneficio-item">Claro Video</div>
+                        <div class="beneficio-item">Claro Música</div>
+                        <div class="beneficio-item">Claro Club</div>
+                        <div class="beneficio-item">Claro Drive</div>
+                    </div>
                 </div>
             </div>
-        </div>
 
-        <!-- TODO CLARO -->
-        <div class="seccion" data-cat="todo-claro">
-            <h2>Todo Claro</h2>
-            <div class="planes-grid">
-                <div class="plan">
-                    <h3>Todo Claro Ejemplo 1</h3>
-                    <div class="precio">$00.000</div>
-                    <p><span>GB:</span> 00 GB</p>
-                    <p><span>Minutos:</span> Ilimitados</p>
-                    <p><span>SMS:</span> Ilimitados</p>
+            <!-- ===================== ESTÁNDAR ===================== -->
+            <div class="plan" data-cat="standart" data-precio="44900">
+                <div class="plan-banner">
+                    <div class="plan-tmcode">TMCODE: 37212</div>
+                    <div class="plan-nombre">Conectados 26.1 V 44.9</div>
+                    <div class="precio">$44.900</div>
+                    <div class="info-rapida">
+                        <div class="info-item"><div class="label">Navegación</div><div class="valor">45 GB</div></div>
+                        <div class="info-item"><div class="label">Compartir</div><div class="valor">45 GB</div></div>
+                        <div class="info-item"><div class="label">Minutos</div><div class="valor">Ilimitados</div></div>
+                        <div class="info-item"><div class="label">SMS</div><div class="valor">Ilimitados</div></div>
+                    </div>
+                    <button class="btn-beneficios" onclick="abrirBeneficios(this)">Ver beneficios ▾</button>
                 </div>
-                <div class="plan">
-                    <h3>Todo Claro Ejemplo 2</h3>
-                    <div class="precio">$00.000</div>
-                    <p><span>GB:</span> 00 GB</p>
-                    <p><span>Minutos:</span> Ilimitados</p>
-                    <p><span>SMS:</span> Ilimitados</p>
+                <div class="beneficios" style="display:none">
+                    <div class="beneficio-grupo">
+                        <div class="beneficio-titulo">Redes sociales ilimitadas</div>
+                        <div class="beneficio-item">WhatsApp, Facebook y X ilimitados</div>
+                    </div>
+                    <div class="beneficio-grupo">
+                        <div class="beneficio-titulo">Aplicaciones incluidas</div>
+                        <div class="beneficio-item">Claro Video</div>
+                        <div class="beneficio-item">Claro Música</div>
+                        <div class="beneficio-item">Claro Club</div>
+                        <div class="beneficio-item">Claro Drive</div>
+                    </div>
+                    <div class="descuentos">
+                        <div class="desc-titulo">Descuentos disponibles</div>
+                        <div class="desc-item">
+                            <div class="desc-label">20% — Meses 1 al 5</div>
+                            <div class="desc-precio">$35.920</div>
+                        </div>
+                        <div class="desc-item">
+                            <div class="desc-label">25% — Meses 1 y 2</div>
+                            <div class="desc-precio">$33.675</div>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div>
 
-        <!-- WINSPORT -->
-        <div class="seccion" data-cat="winsport">
-            <h2>Winsport</h2>
-            <div class="planes-grid">
-                <div class="plan">
-                    <h3>Winsport Ejemplo 1</h3>
-                    <div class="precio">$00.000</div>
-                    <p><span>GB:</span> 00 GB</p>
-                    <p><span>Minutos:</span> Ilimitados</p>
-                    <p><span>SMS:</span> Ilimitados</p>
+            <div class="plan" data-cat="standart" data-precio="46900">
+                <div class="plan-banner">
+                    <div class="plan-tmcode">TMCODE: 38079</div>
+                    <div class="plan-nombre">Conectados 26.1 E 46.9</div>
+                    <div class="precio">$46.900</div>
+                    <div class="info-rapida">
+                        <div class="info-item"><div class="label">Navegación</div><div class="valor">50 GB</div></div>
+                        <div class="info-item"><div class="label">Compartir</div><div class="valor">50 GB</div></div>
+                        <div class="info-item"><div class="label">Minutos</div><div class="valor">Ilimitados</div></div>
+                        <div class="info-item"><div class="label">SMS</div><div class="valor">Ilimitados</div></div>
+                    </div>
+                    <button class="btn-beneficios" onclick="abrirBeneficios(this)">Ver beneficios ▾</button>
                 </div>
-                <div class="plan">
-                    <h3>Winsport Ejemplo 2</h3>
-                    <div class="precio">$00.000</div>
-                    <p><span>GB:</span> 00 GB</p>
-                    <p><span>Minutos:</span> Ilimitados</p>
-                    <p><span>SMS:</span> Ilimitados</p>
+                <div class="beneficios" style="display:none">
+                    <div class="beneficio-grupo">
+                        <div class="beneficio-titulo">Redes sociales ilimitadas</div>
+                        <div class="beneficio-item">WhatsApp, Facebook y X ilimitados</div>
+                    </div>
+                    <div class="beneficio-grupo">
+                        <div class="beneficio-titulo">Aplicaciones incluidas</div>
+                        <div class="beneficio-item">Claro Video</div>
+                        <div class="beneficio-item">Claro Música</div>
+                        <div class="beneficio-item">Claro Club</div>
+                        <div class="beneficio-item">Claro Drive</div>
+                    </div>
+                    <div class="descuentos">
+                        <div class="desc-titulo">Descuentos disponibles</div>
+                        <div class="desc-item">
+                            <div class="desc-label">20% — Meses 1 al 5</div>
+                            <div class="desc-precio">$37.520</div>
+                        </div>
+                        <div class="desc-item">
+                            <div class="desc-label">25% — Meses 1 y 2</div>
+                            <div class="desc-precio">$35.175</div>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div>
 
-        <!-- STREAMING -->
-        <div class="seccion" data-cat="streaming">
-            <h2>Streaming</h2>
-            <div class="planes-grid">
-                <div class="plan">
-                    <h3>Streaming Ejemplo 1</h3>
-                    <div class="precio">$00.000</div>
-                    <p><span>GB:</span> 00 GB</p>
-                    <p><span>Minutos:</span> Ilimitados</p>
-                    <p><span>SMS:</span> Ilimitados</p>
+            <div class="plan" data-cat="standart" data-precio="49900">
+                <div class="plan-banner">
+                    <div class="plan-tmcode">TMCODE: 37368</div>
+                    <div class="plan-nombre">Conectados 26.1 E 49.9_AP1</div>
+                    <div class="precio">$49.900</div>
+                    <div class="info-rapida">
+                        <div class="info-item"><div class="label">Navegación</div><div class="valor">52 GB</div></div>
+                        <div class="info-item"><div class="label">Compartir</div><div class="valor">52 GB</div></div>
+                        <div class="info-item"><div class="label">Minutos</div><div class="valor">Ilimitados</div></div>
+                        <div class="info-item"><div class="label">SMS</div><div class="valor">Ilimitados</div></div>
+                    </div>
+                    <button class="btn-beneficios" onclick="abrirBeneficios(this)">Ver beneficios ▾</button>
                 </div>
-                <div class="plan">
-                    <h3>Streaming Ejemplo 2</h3>
-                    <div class="precio">$00.000</div>
-                    <p><span>GB:</span> 00 GB</p>
-                    <p><span>Minutos:</span> Ilimitados</p>
-                    <p><span>SMS:</span> Ilimitados</p>
+                <div class="beneficios" style="display:none">
+                    <div class="beneficio-grupo">
+                        <div class="beneficio-titulo">Beneficios adicionales</div>
+                        <div class="beneficio-item">Amazon Prime ($5.000)</div>
+                    </div>
+                    <div class="beneficio-grupo">
+                        <div class="beneficio-titulo">Redes sociales ilimitadas</div>
+                        <div class="beneficio-item">WhatsApp, Facebook y X ilimitados</div>
+                    </div>
+                    <div class="beneficio-grupo">
+                        <div class="beneficio-titulo">Aplicaciones incluidas</div>
+                        <div class="beneficio-item">Claro Video</div>
+                        <div class="beneficio-item">Claro Música</div>
+                        <div class="beneficio-item">Claro Club</div>
+                        <div class="beneficio-item">Claro Drive</div>
+                    </div>
+                    <div class="descuentos">
+                        <div class="desc-titulo">Descuentos disponibles</div>
+                        <div class="desc-item">
+                            <div class="desc-label">20% — Meses 1 al 5</div>
+                            <div class="desc-precio">$39.920</div>
+                        </div>
+                        <div class="desc-item">
+                            <div class="desc-label">25% — Meses 1 y 2</div>
+                            <div class="desc-precio">$37.425</div>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div>
 
-        <!-- POWER -->
-        <div class="seccion" data-cat="power">
-            <h2>Power</h2>
-            <div class="planes-grid">
-                <div class="plan">
-                    <h3>Power Ejemplo 1</h3>
-                    <div class="precio">$00.000</div>
-                    <p><span>GB:</span> 00 GB</p>
-                    <p><span>Minutos:</span> Ilimitados</p>
-                    <p><span>SMS:</span> Ilimitados</p>
+            <!-- ===================== POWER ===================== -->
+            <div class="plan" data-cat="power" data-precio="44900">
+                <div class="plan-banner">
+                    <div class="plan-tmcode">TMCODE: 38183</div>
+                    <div class="plan-nombre">Paquete Power 26.2 V 44.9</div>
+                    <div class="precio">$44.900</div>
+                    <div class="info-rapida">
+                        <div class="info-item"><div class="label">Navegación</div><div class="valor">45 GB</div></div>
+                        <div class="info-item"><div class="label">Compartir</div><div class="valor">45 GB</div></div>
+                        <div class="info-item"><div class="label">Minutos</div><div class="valor">Ilimitados</div></div>
+                        <div class="info-item"><div class="label">SMS</div><div class="valor">Ilimitados</div></div>
+                    </div>
+                    <button class="btn-beneficios" onclick="abrirBeneficios(this)">Ver beneficios ▾</button>
                 </div>
-                <div class="plan">
-                    <h3>Power Ejemplo 2</h3>
-                    <div class="precio">$00.000</div>
-                    <p><span>GB:</span> 00 GB</p>
-                    <p><span>Minutos:</span> Ilimitados</p>
-                    <p><span>SMS:</span> Ilimitados</p>
+                <div class="beneficios" style="display:none">
+                    <div class="beneficio-grupo">
+                        <div class="beneficio-titulo">Redes sociales ilimitadas</div>
+                        <div class="beneficio-item">WhatsApp, Facebook y X ilimitados</div>
+                    </div>
+                    <div class="beneficio-grupo">
+                        <div class="beneficio-titulo">Aplicaciones incluidas</div>
+                        <div class="beneficio-item">Claro Música (versión gratuita)</div>
+                        <div class="beneficio-item">Claro Drive (100 GB)</div>
+                        <div class="beneficio-item">Claro Club</div>
+                    </div>
                 </div>
             </div>
-        </div>
 
+            <div class="plan" data-cat="power" data-precio="46900">
+                <div class="plan-banner">
+                    <div class="plan-tmcode">TMCODE: 38085</div>
+                    <div class="plan-nombre">Paquete Power 26.1 V 46.9</div>
+                    <div class="precio">$46.900</div>
+                    <div class="info-rapida">
+                        <div class="info-item"><div class="label">Navegación</div><div class="valor">50 GB</div></div>
+                        <div class="info-item"><div class="label">Compartir</div><div class="valor">50 GB</div></div>
+                        <div class="info-item"><div class="label">Minutos</div><div class="valor">Ilimitados</div></div>
+                        <div class="info-item"><div class="label">SMS</div><div class="valor">Ilimitados</div></div>
+                    </div>
+                    <button class="btn-beneficios" onclick="abrirBeneficios(this)">Ver beneficios ▾</button>
+                </div>
+                <div class="beneficios" style="display:none">
+                    <div class="beneficio-grupo">
+                        <div class="beneficio-titulo">Redes sociales ilimitadas</div>
+                        <div class="beneficio-item">WhatsApp, Facebook y X ilimitados</div>
+                    </div>
+                    <div class="beneficio-grupo">
+                        <div class="beneficio-titulo">Aplicaciones incluidas</div>
+                        <div class="beneficio-item">Claro Música (versión gratuita)</div>
+                        <div class="beneficio-item">Claro Drive (100 GB)</div>
+                        <div class="beneficio-item">Claro Club</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="plan" data-cat="power" data-precio="53900">
+                <div class="plan-banner">
+                    <div class="plan-tmcode">TMCODE: 37289</div>
+                    <div class="plan-nombre">Paquete Power 26.1 V 53.9</div>
+                    <div class="precio">$53.900</div>
+                    <div class="info-rapida">
+                        <div class="info-item"><div class="label">Navegación</div><div class="valor">65 GB</div></div>
+                        <div class="info-item"><div class="label">Compartir</div><div class="valor">65 GB</div></div>
+                        <div class="info-item"><div class="label">Minutos</div><div class="valor">Ilimitados</div></div>
+                        <div class="info-item"><div class="label">SMS</div><div class="valor">Ilimitados</div></div>
+                    </div>
+                    <button class="btn-beneficios" onclick="abrirBeneficios(this)">Ver beneficios ▾</button>
+                </div>
+                <div class="beneficios" style="display:none">
+                    <div class="beneficio-grupo">
+                        <div class="beneficio-titulo">Redes sociales ilimitadas</div>
+                        <div class="beneficio-item">WhatsApp, Facebook y X ilimitados</div>
+                    </div>
+                    <div class="beneficio-grupo">
+                        <div class="beneficio-titulo">Aplicaciones incluidas</div>
+                        <div class="beneficio-item">Claro Música (versión gratuita)</div>
+                        <div class="beneficio-item">Claro Drive (100 GB)</div>
+                        <div class="beneficio-item">Claro Club</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ===================== BUNDLE ===================== -->
+            <div class="plan" data-cat="bundle" data-precio="53900">
+                <div class="plan-banner">
+                    <div class="plan-tmcode">TMCODE: 38081</div>
+                    <div class="plan-nombre">Conectados 26.1 V 53.9</div>
+                    <div class="precio">$53.900</div>
+                    <div class="info-rapida">
+                        <div class="info-item"><div class="label">Navegación</div><div class="valor">65 GB</div></div>
+                        <div class="info-item"><div class="label">Compartir</div><div class="valor">65 GB</div></div>
+                        <div class="info-item"><div class="label">Minutos</div><div class="valor">Ilimitados</div></div>
+                        <div class="info-item"><div class="label">SMS</div><div class="valor">Ilimitados</div></div>
+                    </div>
+                    <button class="btn-beneficios" onclick="abrirBeneficios(this)">Ver beneficios ▾</button>
+                </div>
+                <div class="beneficios" style="display:none">
+                    <div class="beneficio-grupo">
+                        <div class="beneficio-titulo">Redes sociales ilimitadas</div>
+                        <div class="beneficio-item">WhatsApp, Facebook y X ilimitados</div>
+                    </div>
+                    <div class="beneficio-grupo">
+                        <div class="beneficio-titulo">Aplicaciones incluidas</div>
+                        <div class="beneficio-item">Claro Video</div>
+                        <div class="beneficio-item">Claro Música</div>
+                        <div class="beneficio-item">Claro Club</div>
+                        <div class="beneficio-item">Claro Drive</div>
+                    </div>
+                    <div class="descuentos">
+                        <div class="desc-titulo">Descuentos disponibles</div>
+                        <div class="desc-item">
+                            <div class="desc-label">20% — Meses 1 al 5</div>
+                            <div class="desc-precio">$43.120</div>
+                        </div>
+                        <div class="desc-item">
+                            <div class="desc-label">25% — Meses 1 y 2</div>
+                            <div class="desc-precio">$40.425</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="plan" data-cat="bundle" data-precio="55900">
+                <div class="plan-banner">
+                    <div class="plan-tmcode">TMCODE: 38082</div>
+                    <div class="plan-nombre">Conectados 26.1 V 55.9_EC</div>
+                    <div class="precio">$55.900</div>
+                    <div class="info-rapida">
+                        <div class="info-item"><div class="label">Navegación</div><div class="valor">65 GB</div></div>
+                        <div class="info-item"><div class="label">Compartir</div><div class="valor">65 GB</div></div>
+                        <div class="info-item"><div class="label">Minutos</div><div class="valor">Ilimitados</div></div>
+                        <div class="info-item"><div class="label">SMS</div><div class="valor">Ilimitados</div></div>
+                    </div>
+                    <button class="btn-beneficios" onclick="abrirBeneficios(this)">Ver beneficios ▾</button>
+                </div>
+                <div class="beneficios" style="display:none">
+                    <div class="beneficio-grupo">
+                        <div class="beneficio-titulo">Beneficios adicionales</div>
+                        <div class="beneficio-item">Escudo Claro ($2.000)</div>
+                        <div class="beneficio-item">Minutos ilimitados a EE.UU., Canadá, México y Puerto Rico</div>
+                    </div>
+                    <div class="beneficio-grupo">
+                        <div class="beneficio-titulo">Redes sociales ilimitadas</div>
+                        <div class="beneficio-item">WhatsApp, Facebook y X ilimitados</div>
+                    </div>
+                    <div class="beneficio-grupo">
+                        <div class="beneficio-titulo">Aplicaciones incluidas</div>
+                        <div class="beneficio-item">Claro Video</div>
+                        <div class="beneficio-item">Claro Música</div>
+                        <div class="beneficio-item">Claro Club</div>
+                        <div class="beneficio-item">Claro Drive</div>
+                    </div>
+                    <div class="descuentos">
+                        <div class="desc-titulo">Descuentos disponibles</div>
+                        <div class="desc-item">
+                            <div class="desc-label">20% — Meses 1 al 5</div>
+                            <div class="desc-precio">$44.720</div>
+                        </div>
+                        <div class="desc-item">
+                            <div class="desc-label">25% — Meses 1 y 2</div>
+                            <div class="desc-precio">$41.925</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="plan" data-cat="bundle" data-precio="55900">
+                <div class="plan-banner">
+                    <div class="plan-tmcode">TMCODE: 38083</div>
+                    <div class="plan-nombre">Conectados 26.1 V 55.9_CN</div>
+                    <div class="precio">$55.900</div>
+                    <div class="info-rapida">
+                        <div class="info-item"><div class="label">Navegación</div><div class="valor">65 GB</div></div>
+                        <div class="info-item"><div class="label">Compartir</div><div class="valor">65 GB</div></div>
+                        <div class="info-item"><div class="label">Minutos</div><div class="valor">Ilimitados</div></div>
+                        <div class="info-item"><div class="label">SMS</div><div class="valor">Ilimitados</div></div>
+                    </div>
+                    <button class="btn-beneficios" onclick="abrirBeneficios(this)">Ver beneficios ▾</button>
+                </div>
+                <div class="beneficios" style="display:none">
+                    <div class="beneficio-grupo">
+                        <div class="beneficio-titulo">Beneficios adicionales</div>
+                        <div class="beneficio-item">Beneficio Cine ($2.300)</div>
+                        <div class="beneficio-item">Minutos ilimitados a EE.UU., Canadá, México y Puerto Rico</div>
+                    </div>
+                    <div class="beneficio-grupo">
+                        <div class="beneficio-titulo">Redes sociales ilimitadas</div>
+                        <div class="beneficio-item">WhatsApp, Facebook y X ilimitados</div>
+                    </div>
+                    <div class="beneficio-grupo">
+                        <div class="beneficio-titulo">Aplicaciones incluidas</div>
+                        <div class="beneficio-item">Claro Video</div>
+                        <div class="beneficio-item">Claro Música</div>
+                        <div class="beneficio-item">Claro Club</div>
+                        <div class="beneficio-item">Claro Drive</div>
+                    </div>
+                    <div class="descuentos">
+                        <div class="desc-titulo">Descuentos disponibles</div>
+                        <div class="desc-item">
+                            <div class="desc-label">20% — Meses 1 al 5</div>
+                            <div class="desc-precio">$44.720</div>
+                        </div>
+                        <div class="desc-item">
+                            <div class="desc-label">25% — Meses 1 y 2</div>
+                            <div class="desc-precio">$41.925</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="plan" data-cat="bundle" data-precio="56900">
+                <div class="plan-banner">
+                    <div class="plan-tmcode">TMCODE: 38084</div>
+                    <div class="plan-nombre">Conectados 26.1 V 56.9_AP1</div>
+                    <div class="precio">$56.900</div>
+                    <div class="info-rapida">
+                        <div class="info-item"><div class="label">Navegación</div><div class="valor">75 GB</div></div>
+                        <div class="info-item"><div class="label">Compartir</div><div class="valor">15 GB</div></div>
+                        <div class="info-item"><div class="label">Minutos</div><div class="valor">Ilimitados</div></div>
+                        <div class="info-item"><div class="label">SMS</div><div class="valor">Ilimitados</div></div>
+                    </div>
+                    <button class="btn-beneficios" onclick="abrirBeneficios(this)">Ver beneficios ▾</button>
+                </div>
+                <div class="beneficios" style="display:none">
+                    <div class="beneficio-grupo">
+                        <div class="beneficio-titulo">Beneficios adicionales</div>
+                        <div class="beneficio-item">Amazon Prime ($5.000)</div>
+                        <div class="beneficio-item">Minutos ilimitados a EE.UU., Canadá, México y Puerto Rico</div>
+                    </div>
+                    <div class="beneficio-grupo">
+                        <div class="beneficio-titulo">Redes sociales ilimitadas</div>
+                        <div class="beneficio-item">WhatsApp, Facebook, Instagram y X ilimitados</div>
+                    </div>
+                    <div class="beneficio-grupo">
+                        <div class="beneficio-titulo">Aplicaciones incluidas</div>
+                        <div class="beneficio-item">Claro Video</div>
+                        <div class="beneficio-item">Claro Música</div>
+                        <div class="beneficio-item">Claro Club</div>
+                        <div class="beneficio-item">Claro Drive</div>
+                    </div>
+                    <div class="descuentos">
+                        <div class="desc-titulo">Descuentos disponibles</div>
+                        <div class="desc-item">
+                            <div class="desc-label">20% — Meses 1 al 5</div>
+                            <div class="desc-precio">$45.520</div>
+                        </div>
+                        <div class="desc-item">
+                            <div class="desc-label">25% — Meses 1 y 2</div>
+                            <div class="desc-precio">$42.675</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- WIN PLAY -->
+            <div class="plan" data-cat="winsport" data-precio="60900">
+                <div class="plan-banner">
+                    <div class="plan-tmcode">TMCODE: 35086</div>
+                    <div class="plan-nombre">Conectados Win 25.2 V 6.1</div>
+                    <div class="precio">$60.900</div>
+                    <div class="info-rapida">
+                        <div class="info-item"><div class="label">Navegación</div><div class="valor">55 GB</div></div>
+                        <div class="info-item"><div class="label">Compartir</div><div class="valor">55 GB</div></div>
+                        <div class="info-item"><div class="label">Minutos</div><div class="valor">Ilimitados</div></div>
+                        <div class="info-item"><div class="label">SMS</div><div class="valor">Ilimitados</div></div>
+                    </div>
+                    <button class="btn-beneficios" onclick="abrirBeneficios(this)">Ver beneficios ▾</button>
+                </div>
+                <div class="beneficios" style="display:none">
+                    <div class="beneficio-grupo">
+                        <div class="beneficio-titulo">Beneficios adicionales</div>
+                        <div class="beneficio-item">Minutos ilimitados a EE.UU., Canadá, México y Puerto Rico</div>
+                    </div>
+                    <div class="beneficio-grupo">
+                        <div class="beneficio-titulo">Redes sociales ilimitadas</div>
+                        <div class="beneficio-item">WhatsApp, Facebook y X ilimitados</div>
+                    </div>
+                    <div class="beneficio-grupo">
+                        <div class="beneficio-titulo">Aplicaciones incluidas</div>
+                        <div class="beneficio-item">Claro Video</div>
+                        <div class="beneficio-item">Claro Música</div>
+                        <div class="beneficio-item">Claro Club</div>
+                        <div class="beneficio-item">Claro Drive</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- BUNDLE continuación -->
+            <div class="plan" data-cat="bundle" data-precio="65900">
+                <div class="plan-banner">
+                    <div class="plan-tmcode">TMCODE: 37224</div>
+                    <div class="plan-nombre">Conectados 26.1 V 65.9 LO_TM_AP1</div>
+                    <div class="precio">$65.900</div>
+                    <div class="info-rapida">
+                        <div class="info-item"><div class="label">Navegación</div><div class="valor">100 GB</div></div>
+                        <div class="info-item"><div class="label">Compartir</div><div class="valor">15 GB</div></div>
+                        <div class="info-item"><div class="label">Minutos</div><div class="valor">Ilimitados</div></div>
+                        <div class="info-item"><div class="label">SMS</div><div class="valor">Ilimitados</div></div>
+                    </div>
+                    <button class="btn-beneficios" onclick="abrirBeneficios(this)">Ver beneficios ▾</button>
+                </div>
+                <div class="beneficios" style="display:none">
+                    <div class="beneficio-grupo">
+                        <div class="beneficio-titulo">Beneficios adicionales</div>
+                        <div class="beneficio-item">Amazon Prime ($5.000)</div>
+                        <div class="beneficio-item">Multiasistencia ($6.300)</div>
+                        <div class="beneficio-item">Lookout ($3.000)</div>
+                        <div class="beneficio-item">Minutos ilimitados a EE.UU., Canadá, México y Puerto Rico</div>
+                    </div>
+                    <div class="beneficio-grupo">
+                        <div class="beneficio-titulo">Redes sociales ilimitadas</div>
+                        <div class="beneficio-item">WhatsApp, Facebook, Instagram y X ilimitados</div>
+                    </div>
+                    <div class="beneficio-grupo">
+                        <div class="beneficio-titulo">Aplicaciones incluidas</div>
+                        <div class="beneficio-item">Claro Video</div>
+                        <div class="beneficio-item">Claro Música</div>
+                        <div class="beneficio-item">Claro Club</div>
+                        <div class="beneficio-item">Claro Drive</div>
+                    </div>
+                    <div class="descuentos">
+                        <div class="desc-titulo">Descuentos disponibles</div>
+                        <div class="desc-item">
+                            <div class="desc-label">20% — Meses 1 al 5</div>
+                            <div class="desc-precio">$52.720</div>
+                        </div>
+                        <div class="desc-item">
+                            <div class="desc-label">25% — Meses 1 y 2</div>
+                            <div class="desc-precio">$49.425</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="plan" data-cat="bundle" data-precio="65900">
+                <div class="plan-banner">
+                    <div class="plan-tmcode">TMCODE: 37223</div>
+                    <div class="plan-nombre">Conectados 26.1 V 65.9 LO_TS_AP1</div>
+                    <div class="precio">$65.900</div>
+                    <div class="info-rapida">
+                        <div class="info-item"><div class="label">Navegación</div><div class="valor">100 GB</div></div>
+                        <div class="info-item"><div class="label">Compartir</div><div class="valor">15 GB</div></div>
+                        <div class="info-item"><div class="label">Minutos</div><div class="valor">Ilimitados</div></div>
+                        <div class="info-item"><div class="label">SMS</div><div class="valor">Ilimitados</div></div>
+                    </div>
+                    <button class="btn-beneficios" onclick="abrirBeneficios(this)">Ver beneficios ▾</button>
+                </div>
+                <div class="beneficios" style="display:none">
+                    <div class="beneficio-grupo">
+                        <div class="beneficio-titulo">Beneficios adicionales</div>
+                        <div class="beneficio-item">Amazon Prime ($5.000)</div>
+                        <div class="beneficio-item">Salud ($6.300)</div>
+                        <div class="beneficio-item">Lookout ($3.000)</div>
+                        <div class="beneficio-item">Minutos ilimitados a EE.UU., Canadá, México y Puerto Rico</div>
+                    </div>
+                    <div class="beneficio-grupo">
+                        <div class="beneficio-titulo">Redes sociales ilimitadas</div>
+                        <div class="beneficio-item">WhatsApp, Facebook, Instagram y X ilimitados</div>
+                    </div>
+                    <div class="beneficio-grupo">
+                        <div class="beneficio-titulo">Aplicaciones incluidas</div>
+                        <div class="beneficio-item">Claro Video</div>
+                        <div class="beneficio-item">Claro Música</div>
+                        <div class="beneficio-item">Claro Club</div>
+                        <div class="beneficio-item">Claro Drive</div>
+                    </div>
+                    <div class="descuentos">
+                        <div class="desc-titulo">Descuentos disponibles</div>
+                        <div class="desc-item">
+                            <div class="desc-label">20% — Meses 1 al 5</div>
+                            <div class="desc-precio">$52.720</div>
+                        </div>
+                        <div class="desc-item">
+                            <div class="desc-label">25% — Meses 1 y 2</div>
+                            <div class="desc-precio">$49.425</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="plan" data-cat="bundle" data-precio="65900">
+                <div class="plan-banner">
+                    <div class="plan-tmcode">TMCODE: 37222</div>
+                    <div class="plan-nombre">Conectados 26.1 V 65.9 LO_MM_AP1</div>
+                    <div class="precio">$65.900</div>
+                    <div class="info-rapida">
+                        <div class="info-item"><div class="label">Navegación</div><div class="valor">100 GB</div></div>
+                        <div class="info-item"><div class="label">Compartir</div><div class="valor">15 GB</div></div>
+                        <div class="info-item"><div class="label">Minutos</div><div class="valor">Ilimitados</div></div>
+                        <div class="info-item"><div class="label">SMS</div><div class="valor">Ilimitados</div></div>
+                    </div>
+                    <button class="btn-beneficios" onclick="abrirBeneficios(this)">Ver beneficios ▾</button>
+                </div>
+                <div class="beneficios" style="display:none">
+                    <div class="beneficio-grupo">
+                        <div class="beneficio-titulo">Beneficios adicionales</div>
+                        <div class="beneficio-item">Amazon Prime ($5.000)</div>
+                        <div class="beneficio-item">Pets ($6.300)</div>
+                        <div class="beneficio-item">Lookout ($3.000)</div>
+                        <div class="beneficio-item">Minutos ilimitados a EE.UU., Canadá, México y Puerto Rico</div>
+                    </div>
+                    <div class="beneficio-grupo">
+                        <div class="beneficio-titulo">Redes sociales ilimitadas</div>
+                        <div class="beneficio-item">WhatsApp, Facebook, Instagram y X ilimitados</div>
+                    </div>
+                    <div class="beneficio-grupo">
+                        <div class="beneficio-titulo">Aplicaciones incluidas</div>
+                        <div class="beneficio-item">Claro Video</div>
+                        <div class="beneficio-item">Claro Música</div>
+                        <div class="beneficio-item">Claro Club</div>
+                        <div class="beneficio-item">Claro Drive</div>
+                    </div>
+                    <div class="descuentos">
+                        <div class="desc-titulo">Descuentos disponibles</div>
+                        <div class="desc-item">
+                            <div class="desc-label">20% — Meses 1 al 5</div>
+                            <div class="desc-precio">$52.720</div>
+                        </div>
+                        <div class="desc-item">
+                            <div class="desc-label">25% — Meses 1 y 2</div>
+                            <div class="desc-precio">$49.425</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- STREAMING -->
+            <div class="plan" data-cat="streaming" data-precio="68900">
+                <div class="plan-banner">
+                    <div class="plan-tmcode">TMCODE: 32091</div>
+                    <div class="plan-nombre">Conectados Netflix 25 E 6.2</div>
+                    <div class="precio">$68.900</div>
+                    <div class="info-rapida">
+                        <div class="info-item"><div class="label">Navegación</div><div class="valor">80 GB</div></div>
+                        <div class="info-item"><div class="label">Compartir</div><div class="valor">80 GB</div></div>
+                        <div class="info-item"><div class="label">Minutos</div><div class="valor">Ilimitados</div></div>
+                        <div class="info-item"><div class="label">SMS</div><div class="valor">Ilimitados</div></div>
+                    </div>
+                    <button class="btn-beneficios" onclick="abrirBeneficios(this)">Ver beneficios ▾</button>
+                </div>
+                <div class="beneficios" style="display:none">
+                    <div class="beneficio-grupo">
+                        <div class="beneficio-titulo">Beneficios adicionales</div>
+                        <div class="beneficio-item">Netflix básico 1 pantalla ($18.900)</div>
+                        <div class="beneficio-item">Minutos ilimitados a EE.UU., Canadá, México y Puerto Rico</div>
+                    </div>
+                    <div class="beneficio-grupo">
+                        <div class="beneficio-titulo">Redes sociales ilimitadas</div>
+                        <div class="beneficio-item">WhatsApp, Facebook, X e Instagram ilimitados</div>
+                    </div>
+                    <div class="beneficio-grupo">
+                        <div class="beneficio-titulo">Aplicaciones incluidas</div>
+                        <div class="beneficio-item">Claro Video</div>
+                        <div class="beneficio-item">Claro Música</div>
+                        <div class="beneficio-item">Claro Club</div>
+                        <div class="beneficio-item">Claro Drive</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="plan" data-cat="streaming" data-precio="71900">
+                <div class="plan-banner">
+                    <div class="plan-tmcode">TMCODE: 32092</div>
+                    <div class="plan-nombre">Conectados Netflix 25 E 6.3</div>
+                    <div class="precio">$71.900</div>
+                    <div class="info-rapida">
+                        <div class="info-item"><div class="label">Navegación</div><div class="valor">80 GB</div></div>
+                        <div class="info-item"><div class="label">Compartir</div><div class="valor">80 GB</div></div>
+                        <div class="info-item"><div class="label">Minutos</div><div class="valor">Ilimitados</div></div>
+                        <div class="info-item"><div class="label">SMS</div><div class="valor">Ilimitados</div></div>
+                    </div>
+                    <button class="btn-beneficios" onclick="abrirBeneficios(this)">Ver beneficios ▾</button>
+                </div>
+                <div class="beneficios" style="display:none">
+                    <div class="beneficio-grupo">
+                        <div class="beneficio-titulo">Beneficios adicionales</div>
+                        <div class="beneficio-item">Netflix básico 1 pantalla ($18.900)</div>
+                        <div class="beneficio-item">Minutos ilimitados a EE.UU., Canadá, México y Puerto Rico</div>
+                    </div>
+                    <div class="beneficio-grupo">
+                        <div class="beneficio-titulo">Redes sociales ilimitadas</div>
+                        <div class="beneficio-item">WhatsApp, Facebook, X e Instagram ilimitados</div>
+                    </div>
+                    <div class="beneficio-grupo">
+                        <div class="beneficio-titulo">Aplicaciones incluidas</div>
+                        <div class="beneficio-item">Claro Video</div>
+                        <div class="beneficio-item">Claro Música</div>
+                        <div class="beneficio-item">Claro Club</div>
+                        <div class="beneficio-item">Claro Drive</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="plan" data-cat="streaming" data-precio="72900">
+                <div class="plan-banner">
+                    <div class="plan-tmcode">TMCODE: 32093</div>
+                    <div class="plan-nombre">Conectados Netflix 25 E 7.1</div>
+                    <div class="precio">$72.900</div>
+                    <div class="info-rapida">
+                        <div class="info-item"><div class="label">Navegación</div><div class="valor">85 GB</div></div>
+                        <div class="info-item"><div class="label">Compartir</div><div class="valor">10 GB</div></div>
+                        <div class="info-item"><div class="label">Minutos</div><div class="valor">Ilimitados</div></div>
+                        <div class="info-item"><div class="label">SMS</div><div class="valor">Ilimitados</div></div>
+                    </div>
+                    <button class="btn-beneficios" onclick="abrirBeneficios(this)">Ver beneficios ▾</button>
+                </div>
+                <div class="beneficios" style="display:none">
+                    <div class="beneficio-grupo">
+                        <div class="beneficio-titulo">Beneficios adicionales</div>
+                        <div class="beneficio-item">Netflix básico 1 pantalla ($18.900)</div>
+                        <div class="beneficio-item">Minutos ilimitados a EE.UU., Canadá, México y Puerto Rico</div>
+                    </div>
+                    <div class="beneficio-grupo">
+                        <div class="beneficio-titulo">Redes sociales ilimitadas</div>
+                        <div class="beneficio-item">WhatsApp, Facebook, X e Instagram ilimitados</div>
+                    </div>
+                    <div class="beneficio-grupo">
+                        <div class="beneficio-titulo">Aplicaciones incluidas</div>
+                        <div class="beneficio-item">Claro Video</div>
+                        <div class="beneficio-item">Claro Música</div>
+                        <div class="beneficio-item">Claro Club</div>
+                        <div class="beneficio-item">Claro Drive</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="plan" data-cat="streaming" data-precio="75900">
+                <div class="plan-banner">
+                    <div class="plan-tmcode">TMCODE: 32094</div>
+                    <div class="plan-nombre">Conectados Netflix 25 E 7.2</div>
+                    <div class="precio">$75.900</div>
+                    <div class="info-rapida">
+                        <div class="info-item"><div class="label">Navegación</div><div class="valor">95 GB</div></div>
+                        <div class="info-item"><div class="label">Compartir</div><div class="valor">95 GB</div></div>
+                        <div class="info-item"><div class="label">Minutos</div><div class="valor">Ilimitados</div></div>
+                        <div class="info-item"><div class="label">SMS</div><div class="valor">Ilimitados</div></div>
+                    </div>
+                    <button class="btn-beneficios" onclick="abrirBeneficios(this)">Ver beneficios ▾</button>
+                </div>
+                <div class="beneficios" style="display:none">
+                    <div class="beneficio-grupo">
+                        <div class="beneficio-titulo">Beneficios adicionales</div>
+                        <div class="beneficio-item">Netflix básico 1 pantalla ($18.900)</div>
+                        <div class="beneficio-item">Minutos ilimitados a EE.UU., Canadá, México y Puerto Rico</div>
+                    </div>
+                    <div class="beneficio-grupo">
+                        <div class="beneficio-titulo">Redes sociales ilimitadas</div>
+                        <div class="beneficio-item">WhatsApp, Facebook, X e Instagram ilimitados</div>
+                    </div>
+                    <div class="beneficio-grupo">
+                        <div class="beneficio-titulo">Aplicaciones incluidas</div>
+                        <div class="beneficio-item">Claro Video</div>
+                        <div class="beneficio-item">Claro Música</div>
+                        <div class="beneficio-item">Claro Club</div>
+                        <div class="beneficio-item">Claro Drive</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="plan" data-cat="bundle" data-precio="75900">
+                <div class="plan-banner">
+                    <div class="plan-tmcode">TMCODE: 37227</div>
+                    <div class="plan-nombre">Conectados 26.1 V 75.9 LO_TM_AP1</div>
+                    <div class="precio">$75.900</div>
+                    <div class="info-rapida">
+                        <div class="info-item"><div class="label">Navegación</div><div class="valor">130 GB</div></div>
+                        <div class="info-item"><div class="label">Compartir</div><div class="valor">20 GB</div></div>
+                        <div class="info-item"><div class="label">Minutos</div><div class="valor">Ilimitados</div></div>
+                        <div class="info-item"><div class="label">SMS</div><div class="valor">Ilimitados</div></div>
+                    </div>
+                    <button class="btn-beneficios" onclick="abrirBeneficios(this)">Ver beneficios ▾</button>
+                </div>
+                <div class="beneficios" style="display:none">
+                    <div class="beneficio-grupo">
+                        <div class="beneficio-titulo">Beneficios adicionales</div>
+                        <div class="beneficio-item">Amazon Prime ($5.000)</div>
+                        <div class="beneficio-item">Multiasistencia ($6.300)</div>
+                        <div class="beneficio-item">Lookout ($3.000)</div>
+                        <div class="beneficio-item">Minutos ilimitados a EE.UU., Canadá, México y Puerto Rico</div>
+                    </div>
+                    <div class="beneficio-grupo">
+                        <div class="beneficio-titulo">Redes sociales ilimitadas</div>
+                        <div class="beneficio-item">WhatsApp, Facebook, Instagram y X ilimitados</div>
+                    </div>
+                    <div class="beneficio-grupo">
+                        <div class="beneficio-titulo">Aplicaciones incluidas</div>
+                        <div class="beneficio-item">Claro Video</div>
+                        <div class="beneficio-item">Claro Música</div>
+                        <div class="beneficio-item">Claro Club</div>
+                        <div class="beneficio-item">Claro Drive</div>
+                    </div>
+                    <div class="descuentos">
+                        <div class="desc-titulo">Descuentos disponibles</div>
+                        <div class="desc-item">
+                            <div class="desc-label">20% — Meses 1 al 5</div>
+                            <div class="desc-precio">$60.720</div>
+                        </div>
+                        <div class="desc-item">
+                            <div class="desc-label">25% — Meses 1 y 2</div>
+                            <div class="desc-precio">$56.925</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="plan" data-cat="bundle" data-precio="75900">
+                <div class="plan-banner">
+                    <div class="plan-tmcode">TMCODE: 37226</div>
+                    <div class="plan-nombre">Conectados 26.1 V 75.9 LO_TS_AP1</div>
+                    <div class="precio">$75.900</div>
+                    <div class="info-rapida">
+                        <div class="info-item"><div class="label">Navegación</div><div class="valor">130 GB</div></div>
+                        <div class="info-item"><div class="label">Compartir</div><div class="valor">20 GB</div></div>
+                        <div class="info-item"><div class="label">Minutos</div><div class="valor">Ilimitados</div></div>
+                        <div class="info-item"><div class="label">SMS</div><div class="valor">Ilimitados</div></div>
+                    </div>
+                    <button class="btn-beneficios" onclick="abrirBeneficios(this)">Ver beneficios ▾</button>
+                </div>
+                <div class="beneficios" style="display:none">
+                    <div class="beneficio-grupo">
+                        <div class="beneficio-titulo">Beneficios adicionales</div>
+                        <div class="beneficio-item">Amazon Prime ($5.000)</div>
+                        <div class="beneficio-item">Salud ($6.300)</div>
+                        <div class="beneficio-item">Lookout ($3.000)</div>
+                        <div class="beneficio-item">Minutos ilimitados a EE.UU., Canadá, México y Puerto Rico</div>
+                    </div>
+                    <div class="beneficio-grupo">
+                        <div class="beneficio-titulo">Redes sociales ilimitadas</div>
+                        <div class="beneficio-item">WhatsApp, Facebook, Instagram y X ilimitados</div>
+                    </div>
+                    <div class="beneficio-grupo">
+                        <div class="beneficio-titulo">Aplicaciones incluidas</div>
+                        <div class="beneficio-item">Claro Video</div>
+                        <div class="beneficio-item">Claro Música</div>
+                        <div class="beneficio-item">Claro Club</div>
+                        <div class="beneficio-item">Claro Drive</div>
+                    </div>
+                    <div class="descuentos">
+                        <div class="desc-titulo">Descuentos disponibles</div>
+                        <div class="desc-item">
+                            <div class="desc-label">20% — Meses 1 al 5</div>
+                            <div class="desc-precio">$60.720</div>
+                        </div>
+                        <div class="desc-item">
+                            <div class="desc-label">25% — Meses 1 y 2</div>
+                            <div class="desc-precio">$56.925</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="plan" data-cat="bundle" data-precio="75900">
+                <div class="plan-banner">
+                    <div class="plan-tmcode">TMCODE: 37225</div>
+                    <div class="plan-nombre">Conectados 26.1 V 75.9 LO_MM_AP1</div>
+                    <div class="precio">$75.900</div>
+                    <div class="info-rapida">
+                        <div class="info-item"><div class="label">Navegación</div><div class="valor">130 GB</div></div>
+                        <div class="info-item"><div class="label">Compartir</div><div class="valor">20 GB</div></div>
+                        <div class="info-item"><div class="label">Minutos</div><div class="valor">Ilimitados</div></div>
+                        <div class="info-item"><div class="label">SMS</div><div class="valor">Ilimitados</div></div>
+                    </div>
+                    <button class="btn-beneficios" onclick="abrirBeneficios(this)">Ver beneficios ▾</button>
+                </div>
+                <div class="beneficios" style="display:none">
+                    <div class="beneficio-grupo">
+                        <div class="beneficio-titulo">Beneficios adicionales</div>
+                        <div class="beneficio-item">Amazon Prime ($5.000)</div>
+                        <div class="beneficio-item">Pets ($6.300)</div>
+                        <div class="beneficio-item">Lookout ($3.000)</div>
+                        <div class="beneficio-item">Minutos ilimitados a EE.UU., Canadá, México y Puerto Rico</div>
+                    </div>
+                    <div class="beneficio-grupo">
+                        <div class="beneficio-titulo">Redes sociales ilimitadas</div>
+                        <div class="beneficio-item">WhatsApp, Facebook, Instagram y X ilimitados</div>
+                    </div>
+                    <div class="beneficio-grupo">
+                        <div class="beneficio-titulo">Aplicaciones incluidas</div>
+                        <div class="beneficio-item">Claro Video</div>
+                        <div class="beneficio-item">Claro Música</div>
+                        <div class="beneficio-item">Claro Club</div>
+                        <div class="beneficio-item">Claro Drive</div>
+                    </div>
+                    <div class="descuentos">
+                        <div class="desc-titulo">Descuentos disponibles</div>
+                        <div class="desc-item">
+                            <div class="desc-label">20% — Meses 1 al 5</div>
+                            <div class="desc-precio">$60.720</div>
+                        </div>
+                        <div class="desc-item">
+                            <div class="desc-label">25% — Meses 1 y 2</div>
+                            <div class="desc-precio">$56.925</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="plan" data-cat="streaming" data-precio="77900">
+                <div class="plan-banner">
+                    <div class="plan-tmcode">TMCODE: 29009</div>
+                    <div class="plan-nombre">Conectados Netflix 25 E 7.3</div>
+                    <div class="precio">$77.900</div>
+                    <div class="info-rapida">
+                        <div class="info-item"><div class="label">Navegación</div><div class="valor">100 GB</div></div>
+                        <div class="info-item"><div class="label">Compartir</div><div class="valor">15 GB</div></div>
+                        <div class="info-item"><div class="label">Minutos</div><div class="valor">Ilimitados</div></div>
+                        <div class="info-item"><div class="label">SMS</div><div class="valor">Ilimitados</div></div>
+                    </div>
+                    <button class="btn-beneficios" onclick="abrirBeneficios(this)">Ver beneficios ▾</button>
+                </div>
+                <div class="beneficios" style="display:none">
+                    <div class="beneficio-grupo">
+                        <div class="beneficio-titulo">Beneficios adicionales</div>
+                        <div class="beneficio-item">Netflix básico 1 pantalla ($18.900)</div>
+                        <div class="beneficio-item">Minutos ilimitados a EE.UU., Canadá, México y Puerto Rico</div>
+                    </div>
+                    <div class="beneficio-grupo">
+                        <div class="beneficio-titulo">Redes sociales ilimitadas</div>
+                        <div class="beneficio-item">WhatsApp, Facebook, X e Instagram ilimitados</div>
+                    </div>
+                    <div class="beneficio-grupo">
+                        <div class="beneficio-titulo">Aplicaciones incluidas</div>
+                        <div class="beneficio-item">Claro Video</div>
+                        <div class="beneficio-item">Claro Música</div>
+                        <div class="beneficio-item">Claro Club</div>
+                        <div class="beneficio-item">Claro Drive</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="plan" data-cat="streaming" data-precio="79900">
+                <div class="plan-banner">
+                    <div class="plan-tmcode">TMCODE: 32101</div>
+                    <div class="plan-nombre">Conectados Netflix 25 E 7.5</div>
+                    <div class="precio">$79.900</div>
+                    <div class="info-rapida">
+                        <div class="info-item"><div class="label">Navegación</div><div class="valor">80 GB</div></div>
+                        <div class="info-item"><div class="label">Compartir</div><div class="valor">80 GB</div></div>
+                        <div class="info-item"><div class="label">Minutos</div><div class="valor">Ilimitados</div></div>
+                        <div class="info-item"><div class="label">SMS</div><div class="valor">Ilimitados</div></div>
+                    </div>
+                    <button class="btn-beneficios" onclick="abrirBeneficios(this)">Ver beneficios ▾</button>
+                </div>
+                <div class="beneficios" style="display:none">
+                    <div class="beneficio-grupo">
+                        <div class="beneficio-titulo">Beneficios adicionales</div>
+                        <div class="beneficio-item">Netflix estándar 2 pantallas ($29.900)</div>
+                        <div class="beneficio-item">Minutos ilimitados a EE.UU., Canadá, México y Puerto Rico</div>
+                    </div>
+                    <div class="beneficio-grupo">
+                        <div class="beneficio-titulo">Redes sociales ilimitadas</div>
+                        <div class="beneficio-item">WhatsApp, Facebook, X e Instagram ilimitados</div>
+                    </div>
+                    <div class="beneficio-grupo">
+                        <div class="beneficio-titulo">Aplicaciones incluidas</div>
+                        <div class="beneficio-item">Claro Video</div>
+                        <div class="beneficio-item">Claro Música</div>
+                        <div class="beneficio-item">Claro Club</div>
+                        <div class="beneficio-item">Claro Drive</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="plan" data-cat="streaming" data-precio="93900">
+                <div class="plan-banner">
+                    <div class="plan-tmcode">TMCODE: 32108</div>
+                    <div class="plan-nombre">Conectados Disney 25 V 9.1</div>
+                    <div class="precio">$93.900</div>
+                    <div class="info-rapida">
+                        <div class="info-item"><div class="label">Navegación</div><div class="valor">60 GB</div></div>
+                        <div class="info-item"><div class="label">Compartir</div><div class="valor">60 GB</div></div>
+                        <div class="info-item"><div class="label">Minutos</div><div class="valor">Ilimitados</div></div>
+                        <div class="info-item"><div class="label">SMS</div><div class="valor">Ilimitados</div></div>
+                    </div>
+                    <button class="btn-beneficios" onclick="abrirBeneficios(this)">Ver beneficios ▾</button>
+                </div>
+                <div class="beneficios" style="display:none">
+                    <div class="beneficio-grupo">
+                        <div class="beneficio-titulo">Beneficios adicionales</div>
+                        <div class="beneficio-item">Disney Premium 4 pantallas ($49.900)</div>
+                        <div class="beneficio-item">Minutos ilimitados a EE.UU., Canadá, México y Puerto Rico</div>
+                    </div>
+                    <div class="beneficio-grupo">
+                        <div class="beneficio-titulo">Redes sociales ilimitadas</div>
+                        <div class="beneficio-item">WhatsApp, Facebook, X e Instagram ilimitados</div>
+                    </div>
+                    <div class="beneficio-grupo">
+                        <div class="beneficio-titulo">Aplicaciones incluidas</div>
+                        <div class="beneficio-item">Claro Video</div>
+                        <div class="beneficio-item">Claro Música</div>
+                        <div class="beneficio-item">Claro Club</div>
+                        <div class="beneficio-item">Claro Drive</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="plan" data-cat="bundle" data-precio="99900">
+                <div class="plan-banner">
+                    <div class="plan-tmcode">TMCODE: 37230</div>
+                    <div class="plan-nombre">Conectados 26.1 V 99.9 LO_TM_AP1L</div>
+                    <div class="precio">$99.900</div>
+                    <div class="info-rapida">
+                        <div class="info-item"><div class="label">Navegación</div><div class="valor">Libre</div></div>
+                        <div class="info-item"><div class="label">Compartir</div><div class="valor">70 GB</div></div>
+                        <div class="info-item"><div class="label">Minutos</div><div class="valor">Ilimitados</div></div>
+                        <div class="info-item"><div class="label">SMS</div><div class="valor">Ilimitados</div></div>
+                    </div>
+                    <button class="btn-beneficios" onclick="abrirBeneficios(this)">Ver beneficios ▾</button>
+                </div>
+                <div class="beneficios" style="display:none">
+                    <div class="beneficio-grupo">
+                        <div class="beneficio-titulo">Beneficios adicionales</div>
+                        <div class="beneficio-item">Amazon Prime ($5.000)</div>
+                        <div class="beneficio-item">Netflix básico ($18.900)</div>
+                        <div class="beneficio-item">Multiasistencia ($6.300)</div>
+                        <div class="beneficio-item">Lookout ($3.000)</div>
+                        <div class="beneficio-item">Minutos ilimitados a EE.UU., Canadá, México y Puerto Rico</div>
+                    </div>
+                    <div class="beneficio-grupo">
+                        <div class="beneficio-titulo">Aplicaciones incluidas</div>
+                        <div class="beneficio-item">Claro Video</div>
+                        <div class="beneficio-item">Claro Música</div>
+                        <div class="beneficio-item">Claro Club</div>
+                        <div class="beneficio-item">Claro Drive</div>
+                    </div>
+                    <div class="descuentos">
+                        <div class="desc-titulo">Descuentos disponibles</div>
+                        <div class="desc-item">
+                            <div class="desc-label">20% — Meses 1 al 5</div>
+                            <div class="desc-precio">$79.920</div>
+                        </div>
+                        <div class="desc-item">
+                            <div class="desc-label">25% — Meses 1 y 2</div>
+                            <div class="desc-precio">$74.925</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="plan" data-cat="bundle" data-precio="99900">
+                <div class="plan-banner">
+                    <div class="plan-tmcode">TMCODE: 37229</div>
+                    <div class="plan-nombre">Conectados 26.1 V 99.9 LO_TS_AP1L</div>
+                    <div class="precio">$99.900</div>
+                    <div class="info-rapida">
+                        <div class="info-item"><div class="label">Navegación</div><div class="valor">Libre</div></div>
+                        <div class="info-item"><div class="label">Compartir</div><div class="valor">70 GB</div></div>
+                        <div class="info-item"><div class="label">Minutos</div><div class="valor">Ilimitados</div></div>
+                        <div class="info-item"><div class="label">SMS</div><div class="valor">Ilimitados</div></div>
+                    </div>
+                    <button class="btn-beneficios" onclick="abrirBeneficios(this)">Ver beneficios ▾</button>
+                </div>
+                <div class="beneficios" style="display:none">
+                    <div class="beneficio-grupo">
+                        <div class="beneficio-titulo">Beneficios adicionales</div>
+                        <div class="beneficio-item">Amazon Prime ($5.000)</div>
+                        <div class="beneficio-item">Netflix básico ($18.900)</div>
+                        <div class="beneficio-item">Salud ($6.300)</div>
+                        <div class="beneficio-item">Lookout ($3.000)</div>
+                        <div class="beneficio-item">Minutos ilimitados a EE.UU., Canadá, México y Puerto Rico</div>
+                    </div>
+                    <div class="beneficio-grupo">
+                        <div class="beneficio-titulo">Aplicaciones incluidas</div>
+                        <div class="beneficio-item">Claro Video</div>
+                        <div class="beneficio-item">Claro Música</div>
+                        <div class="beneficio-item">Claro Club</div>
+                        <div class="beneficio-item">Claro Drive</div>
+                    </div>
+                    <div class="descuentos">
+                        <div class="desc-titulo">Descuentos disponibles</div>
+                        <div class="desc-item">
+                            <div class="desc-label">20% — Meses 1 al 5</div>
+                            <div class="desc-precio">$79.920</div>
+                        </div>
+                        <div class="desc-item">
+                            <div class="desc-label">25% — Meses 1 y 2</div>
+                            <div class="desc-precio">$74.925</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="plan" data-cat="bundle" data-precio="99900">
+                <div class="plan-banner">
+                    <div class="plan-tmcode">TMCODE: 37228</div>
+                    <div class="plan-nombre">Conectados 26.1 V 99.9 LO_MM_AP1L</div>
+                    <div class="precio">$99.900</div>
+                    <div class="info-rapida">
+                        <div class="info-item"><div class="label">Navegación</div><div class="valor">Libre</div></div>
+                        <div class="info-item"><div class="label">Compartir</div><div class="valor">70 GB</div></div>
+                        <div class="info-item"><div class="label">Minutos</div><div class="valor">Ilimitados</div></div>
+                        <div class="info-item"><div class="label">SMS</div><div class="valor">Ilimitados</div></div>
+                    </div>
+                    <button class="btn-beneficios" onclick="abrirBeneficios(this)">Ver beneficios ▾</button>
+                </div>
+                <div class="beneficios" style="display:none">
+                    <div class="beneficio-grupo">
+                        <div class="beneficio-titulo">Beneficios adicionales</div>
+                        <div class="beneficio-item">Amazon Prime ($5.000)</div>
+                        <div class="beneficio-item">Netflix básico ($18.900)</div>
+                        <div class="beneficio-item">Pets ($6.300)</div>
+                        <div class="beneficio-item">Lookout ($3.000)</div>
+                        <div class="beneficio-item">Minutos ilimitados a EE.UU., Canadá, México y Puerto Rico</div>
+                    </div>
+                    <div class="beneficio-grupo">
+                        <div class="beneficio-titulo">Aplicaciones incluidas</div>
+                        <div class="beneficio-item">Claro Video</div>
+                        <div class="beneficio-item">Claro Música</div>
+                        <div class="beneficio-item">Claro Club</div>
+                        <div class="beneficio-item">Claro Drive</div>
+                    </div>
+                    <div class="descuentos">
+                        <div class="desc-titulo">Descuentos disponibles</div>
+                        <div class="desc-item">
+                            <div class="desc-label">20% — Meses 1 al 5</div>
+                            <div class="desc-precio">$79.920</div>
+                        </div>
+                        <div class="desc-item">
+                            <div class="desc-label">25% — Meses 1 y 2</div>
+                            <div class="desc-precio">$74.925</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="plan" data-cat="streaming" data-precio="118900">
+                <div class="plan-banner">
+                    <div class="plan-tmcode">TMCODE: 28990</div>
+                    <div class="plan-nombre">Conectados Netflix 25 E 11.1</div>
+                    <div class="precio">$118.900</div>
+                    <div class="info-rapida">
+                        <div class="info-item"><div class="label">Navegación</div><div class="valor">Libre</div></div>
+                        <div class="info-item"><div class="label">Compartir</div><div class="valor">50 GB</div></div>
+                        <div class="info-item"><div class="label">Minutos</div><div class="valor">Ilimitados</div></div>
+                        <div class="info-item"><div class="label">SMS</div><div class="valor">Ilimitados</div></div>
+                    </div>
+                    <button class="btn-beneficios" onclick="abrirBeneficios(this)">Ver beneficios ▾</button>
+                </div>
+                <div class="beneficios" style="display:none">
+                    <div class="beneficio-grupo">
+                        <div class="beneficio-titulo">Beneficios adicionales</div>
+                        <div class="beneficio-item">Netflix estándar 2 pantallas ($29.900)</div>
+                        <div class="beneficio-item">Minutos ilimitados a EE.UU., Canadá, México y Puerto Rico</div>
+                    </div>
+                    <div class="beneficio-grupo">
+                        <div class="beneficio-titulo">Aplicaciones incluidas</div>
+                        <div class="beneficio-item">Claro Video</div>
+                        <div class="beneficio-item">Claro Música</div>
+                        <div class="beneficio-item">Claro Club</div>
+                        <div class="beneficio-item">Claro Drive</div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<!-- MODAL -->
+<div class="modal-overlay" id="modal-overlay" onclick="cerrarModal(event)">
+    <div class="modal" id="modal-box">
+        <div class="modal-header">
+            <div>
+                <div class="modal-tmcode" id="modal-tmcode"></div>
+                <div class="modal-titulo" id="modal-titulo"></div>
+                <div class="modal-precio" id="modal-precio"></div>
+            </div>
+            <button class="modal-cerrar" onclick="cerrarModalBtn()">✕</button>
+        </div>
+        <div class="modal-body" id="modal-body"></div>
     </div>
 </div>
 
@@ -311,6 +1450,7 @@
     function verPlanes() {
         document.getElementById('inicio').style.display = 'none';
         document.getElementById('planes').style.display = 'block';
+        ordenarPlanes();
     }
     function volver() {
         document.getElementById('planes').style.display = 'none';
@@ -319,14 +1459,44 @@
     function filtrar(cat, btn) {
         document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('activo'));
         btn.classList.add('activo');
-        document.querySelectorAll('.seccion').forEach(s => {
-            if (cat === 'todos' || s.dataset.cat === cat) {
-                s.classList.remove('oculto');
+        document.querySelectorAll('.plan').forEach(p => {
+            if (cat === 'todos' || p.dataset.cat === cat) {
+                p.style.display = 'block';
             } else {
-                s.classList.add('oculto');
+                p.style.display = 'none';
             }
         });
     }
+    function ordenarPlanes() {
+        const grid = document.getElementById('grid-planes');
+        const planes = Array.from(grid.querySelectorAll('.plan'));
+        planes.sort((a, b) => parseInt(a.dataset.precio) - parseInt(b.dataset.precio));
+        planes.forEach(p => grid.appendChild(p));
+    }
+    function abrirBeneficios(btn) {
+        const plan = btn.closest('.plan');
+        const banner = btn.closest('.plan-banner');
+        const beneficiosEl = plan.querySelector('.beneficios');
+        const esTodoClaro = plan.classList.contains('todo-claro-card');
+
+        document.getElementById('modal-tmcode').textContent = banner.querySelector('.plan-tmcode').textContent;
+        document.getElementById('modal-titulo').textContent = banner.querySelector('.plan-nombre').textContent;
+        document.getElementById('modal-precio').textContent = banner.querySelector('.precio').textContent;
+        document.getElementById('modal-body').innerHTML = beneficiosEl.innerHTML;
+
+        const modal = document.getElementById('modal-box');
+        modal.className = esTodoClaro ? 'modal todo-claro-modal' : 'modal';
+        document.getElementById('modal-overlay').classList.add('abierto');
+        document.body.style.overflow = 'hidden';
+    }
+    function cerrarModal(e) {
+        if (e.target === document.getElementById('modal-overlay')) cerrarModalBtn();
+    }
+    function cerrarModalBtn() {
+        document.getElementById('modal-overlay').classList.remove('abierto');
+        document.body.style.overflow = '';
+    }
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') cerrarModalBtn(); });
 </script>
 
 </body>
