@@ -15,10 +15,24 @@
             align-items: center;
             justify-content: center;
             height: 100vh;
-            background: linear-gradient(135deg, #0a0a0a, #1a1a1a);
+            background: #0a0a0a;
             text-align: center;
             gap: 20px;
+            position: relative;
+            overflow: hidden;
         }
+        #inicio::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 70%;
+            height: 60%;
+            background: radial-gradient(ellipse, rgba(204,0,0,0.18) 0%, transparent 70%);
+            pointer-events: none;
+        }
+        #inicio > * { position: relative; z-index: 1; }
         #inicio .linea-roja { width: 60px; height: 4px; background: #cc0000; border-radius: 2px; }
         #inicio h1 { font-size: 36px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; }
         #inicio h1 span { color: #cc0000; }
@@ -40,15 +54,30 @@
         #inicio button:hover { background: #aa0000; transform: scale(1.05); }
 
         /* PLANES */
-        #planes { display: none; }
+        #planes { display: none; position: relative; }
+        #planes::before {
+            content: '';
+            position: fixed;
+            top: -60px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 90%;
+            height: 300px;
+            background: radial-gradient(ellipse at top, rgba(204,0,0,0.28) 0%, transparent 65%);
+            pointer-events: none;
+            z-index: 0;
+        }
+        #planes > * { position: relative; z-index: 1; }
 
         header {
             background: linear-gradient(135deg, #0a0a0a, #1a1a1a);
             padding: 25px 40px;
             display: flex;
             align-items: center;
+            justify-content: center;
             gap: 15px;
             border-bottom: 2px solid #cc0000;
+            text-align: center;
         }
         header .titulo h1 { font-size: 22px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; }
         header .titulo p { color: #888; font-size: 12px; letter-spacing: 1px; margin-top: 3px; }
@@ -277,7 +306,7 @@
 <div id="planes">
     <header>
         <div class="titulo">
-            <h1>Claro Colombia</h1>
+            <h1>Ofertas Claro Migración</h1>
             <p>Portafolio de Planes — Uso Interno Asesores</p>
         </div>
         <button class="volver" onclick="volver()">← Volver</button>
