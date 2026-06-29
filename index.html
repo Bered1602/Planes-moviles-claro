@@ -8,32 +8,91 @@
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { background: #111111; color: white; font-family: 'Segoe UI', Arial, sans-serif; }
 
+        /* INICIO */
+        #inicio {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            background: linear-gradient(135deg, #0a0a0a, #1a1a1a);
+            text-align: center;
+            gap: 20px;
+        }
+        #inicio .linea-roja {
+            width: 60px;
+            height: 4px;
+            background: #cc0000;
+            border-radius: 2px;
+        }
+        #inicio h1 {
+            font-size: 36px;
+            font-weight: 700;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+        }
+        #inicio h1 span { color: #cc0000; }
+        #inicio p {
+            color: #888;
+            font-size: 15px;
+            letter-spacing: 1px;
+        }
+        #inicio button {
+            margin-top: 20px;
+            padding: 16px 40px;
+            background: #cc0000;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 15px;
+            font-weight: 600;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: background 0.3s ease, transform 0.2s ease;
+        }
+        #inicio button:hover {
+            background: #aa0000;
+            transform: scale(1.05);
+        }
+
+        /* PLANES */
+        #planes { display: none; }
+
         header {
-            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 50%, #0a0a0a 100%);
-            padding: 30px 40px;
+            background: linear-gradient(135deg, #0a0a0a, #1a1a1a);
+            padding: 25px 40px;
             display: flex;
             align-items: center;
-            gap: 20px;
+            gap: 15px;
             border-bottom: 2px solid #cc0000;
         }
-        header .logo { color: #cc0000; font-size: 36px; }
-        header .titulo h1 { font-size: 24px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; }
-        header .titulo p { color: #888; font-size: 13px; letter-spacing: 1px; margin-top: 3px; }
+        header .titulo h1 { font-size: 22px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; }
+        header .titulo p { color: #888; font-size: 12px; letter-spacing: 1px; margin-top: 3px; }
+        header .volver {
+            margin-left: auto;
+            padding: 8px 20px;
+            background: transparent;
+            color: #cc0000;
+            border: 1px solid #cc0000;
+            border-radius: 6px;
+            font-size: 13px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        header .volver:hover { background: #cc0000; color: white; }
 
         .contenido { padding: 40px; max-width: 1200px; margin: auto; }
-
         h2 {
             color: #ffffff;
-            font-size: 14px;
+            font-size: 13px;
             letter-spacing: 3px;
             text-transform: uppercase;
             margin: 30px 0 20px;
             padding-left: 12px;
             border-left: 3px solid #cc0000;
         }
-
-        .planes { display: flex; flex-wrap: wrap; gap: 20px; }
-
+        .planes-grid { display: flex; flex-wrap: wrap; gap: 20px; }
         .plan {
             background: #1c1c1c;
             border-radius: 12px;
@@ -56,12 +115,8 @@
             opacity: 0;
             transition: opacity 0.3s ease;
         }
-        .plan:hover {
-            transform: translateY(-6px);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-        }
+        .plan:hover { transform: translateY(-6px); box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
         .plan:hover::after { opacity: 1; }
-
         .plan h3 { color: #cc0000; margin-bottom: 12px; font-size: 15px; }
         .precio {
             background: linear-gradient(145deg, #1a0000, #2a0000);
@@ -79,28 +134,51 @@
 </head>
 <body>
 
-<header>
-    <div class="logo">📡</div>
-    <div class="titulo">
-        <h1>Claro Colombia</h1>
-        <p>Portafolio de Planes — Uso Interno Asesores</p>
-    </div>
-</header>
+<!-- PÁGINA DE INICIO -->
+<div id="inicio">
+    <div class="linea-roja"></div>
+    <h1>Bienvenido a <span>Claro</span></h1>
+    <p>Herramienta interna para asesores comerciales</p>
+    <div class="linea-roja"></div>
+    <button onclick="verPlanes()">Ver Planes Móviles</button>
+</div>
 
-<div class="contenido">
-    <h2>Planes Móviles</h2>
-    <div class="planes">
-
-        <div class="plan">
-            <h3>Plan Ejemplo 1</h3>
-            <div class="precio">$00.000</div>
-            <p><span>GB:</span> 00 GB</p>
-            <p><span>Minutos:</span> Ilimitados</p>
-            <p><span>SMS:</span> Ilimitados</p>
+<!-- PÁGINA DE PLANES -->
+<div id="planes">
+    <header>
+        <div class="titulo">
+            <h1>Claro Colombia</h1>
+            <p>Portafolio de Planes — Uso Interno Asesores</p>
         </div>
+        <button class="volver" onclick="volver()">← Volver</button>
+    </header>
 
+    <div class="contenido">
+        <h2>Planes Móviles</h2>
+        <div class="planes-grid">
+
+            <div class="plan">
+                <h3>Plan Ejemplo 1</h3>
+                <div class="precio">$00.000</div>
+                <p><span>GB:</span> 00 GB</p>
+                <p><span>Minutos:</span> Ilimitados</p>
+                <p><span>SMS:</span> Ilimitados</p>
+            </div>
+
+        </div>
     </div>
 </div>
+
+<script>
+    function verPlanes() {
+        document.getElementById('inicio').style.display = 'none';
+        document.getElementById('planes').style.display = 'block';
+    }
+    function volver() {
+        document.getElementById('planes').style.display = 'none';
+        document.getElementById('inicio').style.display = 'flex';
+    }
+</script>
 
 </body>
 </html>
