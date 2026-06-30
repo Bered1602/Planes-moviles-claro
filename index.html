@@ -149,7 +149,10 @@
             position: relative;
             transition: transform 0.3s ease, box-shadow 0.3s ease;
             overflow: hidden;
+            display: flex;
+            flex-direction: column;
         }
+        .plan-banner { flex: 1; }
         .plan.todo-claro-card { border: 1px solid #b8860b; }
         .plan::after {
             content: '';
@@ -170,7 +173,6 @@
         /* BANNER SUPERIOR */
         .plan-banner {
             padding: 18px 18px 14px;
-            border-bottom: 1px solid #2a2a2a;
         }
         .plan-tmcode { font-size: 10px; color: #666; letter-spacing: 1px; margin-bottom: 4px; }
         .plan-nombre { color: #cc0000; font-size: 13px; font-weight: 700; margin-bottom: 12px; }
@@ -1559,8 +1561,4 @@
         document.getElementById('modal-overlay').classList.remove('abierto');
         document.body.style.overflow = '';
     }
-    document.addEventListener('keydown', e => { if (e.key === 'Escape') cerrarModalBtn(); });
-</script>
-
-</body>
-</html>
+    document.addEventListener('keydown', e => { if (e.key === 'Escape'
