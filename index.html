@@ -54,20 +54,35 @@
         #inicio button:hover { background: #aa0000; transform: scale(1.05); }
 
         /* PLANES */
-        #planes { display: none; position: relative; }
-        #planes::before {
-            content: '';
-            position: fixed;
-            top: -60px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 90%;
-            height: 300px;
-            background: radial-gradient(ellipse at top, rgba(204,0,0,0.28) 0%, transparent 65%);
-            pointer-events: none;
-            z-index: 0;
+        #planes { display: none; }
+
+        /* BUSCADOR */
+        .buscador-wrap {
+            padding: 20px 40px 0;
+            max-width: 1400px;
+            margin: auto;
         }
-        #planes > * { position: relative; z-index: 1; }
+        .buscador-wrap input {
+            width: 100%;
+            padding: 12px 18px;
+            background: #1c1c1c;
+            border: 1px solid #333;
+            border-radius: 8px;
+            color: white;
+            font-size: 14px;
+            outline: none;
+            transition: border-color 0.3s;
+        }
+        .buscador-wrap input::placeholder { color: #555; }
+        .buscador-wrap input:focus { border-color: #cc0000; }
+        .sin-resultados {
+            display: none;
+            text-align: center;
+            color: #555;
+            padding: 40px;
+            font-size: 14px;
+            letter-spacing: 1px;
+        }
 
         header {
             background: linear-gradient(135deg, #0a0a0a, #1a1a1a);
@@ -78,11 +93,13 @@
             gap: 15px;
             border-bottom: 2px solid #cc0000;
             text-align: center;
+            position: relative;
         }
         header .titulo h1 { font-size: 22px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; }
         header .titulo p { color: #888; font-size: 12px; letter-spacing: 1px; margin-top: 3px; }
         header .volver {
-            margin-left: auto;
+            position: absolute;
+            right: 40px;
             padding: 8px 20px;
             background: transparent;
             color: #cc0000;
@@ -296,8 +313,8 @@
 <!-- PÁGINA DE INICIO -->
 <div id="inicio">
     <div class="linea-roja"></div>
-    <h1><span>¡BIENVENIDO!</span></h1>
-    <p>Catálogo pospago migracion</p>
+    <h1>Bienvenido a <span>Claro</span></h1>
+    <p>Herramienta interna para asesores comerciales</p>
     <div class="linea-roja"></div>
     <button onclick="verPlanes()">Ver Planes Móviles</button>
 </div>
@@ -311,6 +328,11 @@
         </div>
         <button class="volver" onclick="volver()">← Volver</button>
     </header>
+
+    <!-- BUSCADOR -->
+    <div class="buscador-wrap">
+        <input type="text" id="buscador" placeholder="🔍  Buscar por nombre, TMCODE o precio..." oninput="buscar()">
+    </div>
 
     <div class="categorias">
         <button class="cat-btn activo" onclick="filtrar('todos', this)">Todos</button>
@@ -1495,6 +1517,18 @@
                 p.style.display = 'none';
             }
         });
+    }
+    function buscar() {
+        const texto = document.getElementById('buscador').value.toLowerCase().trim();
+        const planes = document.querySelectorAll('.plan');
+        planes.forEach(p => {
+            const contenido = p.innerText.toLowerCase();
+            p.style.display = (!texto || contenido.includes(texto)) ? 'block' : 'none';
+        });
+        // Resetear filtros de categoría si hay búsqueda
+        if (texto) {
+            document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('activo'));
+        }
     }
     function ordenarPlanes() {
         const grid = document.getElementById('grid-planes');
