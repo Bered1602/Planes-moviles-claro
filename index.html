@@ -307,7 +307,67 @@
             margin-bottom: 10px;
         }
 
-        .oculto { display: none; }
+        /* BOTÓN CONTRATOS */
+        .btn-contratos {
+            padding: 8px 20px;
+            background: transparent;
+            color: #aaa;
+            border: 1px solid #333;
+            border-radius: 20px;
+            font-size: 13px;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .btn-contratos:hover { border-color: #cc0000; color: white; }
+
+        /* MODAL CONTRATOS */
+        .modal-contratos {
+            display: none;
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: rgba(0,0,0,0.75);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+        .modal-contratos.abierto { display: flex; }
+        .modal-contratos-box {
+            background: #1c1c1c;
+            border-radius: 14px;
+            width: 400px;
+            max-width: 90vw;
+            border: 1px solid #2a2a2a;
+            overflow: hidden;
+            animation: slideUp 0.25s ease;
+        }
+        .modal-contratos-header {
+            padding: 20px;
+            border-bottom: 1px solid #2a2a2a;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .modal-contratos-header h3 { font-size: 15px; letter-spacing: 2px; text-transform: uppercase; }
+        .modal-contratos-body { padding: 16px 20px 20px; display: flex; flex-direction: column; gap: 10px; }
+        .contrato-item {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            padding: 14px 16px;
+            background: #141414;
+            border-radius: 8px;
+            border: 1px solid #2a2a2a;
+            text-decoration: none;
+            color: white;
+            transition: all 0.3s;
+        }
+        .contrato-item:hover { border-color: #cc0000; background: #1a0000; }
+        .contrato-item .icono { font-size: 22px; }
+        .contrato-item .info .nombre { font-size: 14px; font-weight: 600; }
+        .contrato-item .info .tipo { font-size: 11px; color: #666; margin-top: 2px; }
     </style>
 </head>
 <body>
@@ -344,6 +404,7 @@
         <button class="cat-btn" onclick="filtrar('winsport', this)">Win Play</button>
         <button class="cat-btn" onclick="filtrar('streaming', this)">Streaming</button>
         <button class="cat-btn" onclick="filtrar('power', this)">Power</button>
+        <button class="btn-contratos" onclick="abrirContratos()">📄 Contratos</button>
     </div>
 
     <div class="contenido">
@@ -1484,6 +1545,46 @@
     </div>
 </div>
 
+<!-- MODAL CONTRATOS -->
+<div class="modal-contratos" id="modal-contratos" onclick="cerrarContratos(event)">
+    <div class="modal-contratos-box">
+        <div class="modal-contratos-header">
+            <h3>📄 Contratos</h3>
+            <button class="modal-cerrar" onclick="cerrarContratosBtn()">✕</button>
+        </div>
+        <div class="modal-contratos-body">
+            <a class="contrato-item" href="contrato-migracion.pdf" target="_blank">
+                <div class="icono">📋</div>
+                <div class="info">
+                    <div class="nombre">Contrato Migración</div>
+                    <div class="tipo">Abrir PDF en nueva pestaña</div>
+                </div>
+            </a>
+            <a class="contrato-item" href="contrato-Netflix.pdf" target="_blank">
+                <div class="icono">📋</div>
+                <div class="info">
+                    <div class="nombre">Contrato Netflix</div>
+                    <div class="tipo">Abrir PDF en nueva pestaña</div>
+                </div>
+            </a>
+            <a class="contrato-item" href="contrato-notitular.pdf" target="_blank">
+                <div class="icono">📋</div>
+                <div class="info">
+                    <div class="nombre">Contrato No Titular</div>
+                    <div class="tipo">Abrir PDF en nueva pestaña</div>
+                </div>
+            </a>
+            <a class="contrato-item" href="contrato-power.pdf" target="_blank">
+                <div class="icono">📋</div>
+                <div class="info">
+                    <div class="nombre">Contrato Power</div>
+                    <div class="tipo">Abrir PDF en nueva pestaña</div>
+                </div>
+            </a>
+        </div>
+    </div>
+</div>
+
 <!-- MODAL -->
 <div class="modal-overlay" id="modal-overlay" onclick="cerrarModal(event)">
     <div class="modal" id="modal-box">
@@ -1531,6 +1632,17 @@
         if (texto) {
             document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('activo'));
         }
+    }
+    function abrirContratos() {
+        document.getElementById('modal-contratos').classList.add('abierto');
+        document.body.style.overflow = 'hidden';
+    }
+    function cerrarContratos(e) {
+        if (e.target === document.getElementById('modal-contratos')) cerrarContratosBtn();
+    }
+    function cerrarContratosBtn() {
+        document.getElementById('modal-contratos').classList.remove('abierto');
+        document.body.style.overflow = '';
     }
     function ordenarPlanes() {
         const grid = document.getElementById('grid-planes');
