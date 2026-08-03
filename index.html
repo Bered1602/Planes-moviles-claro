@@ -6,7 +6,45 @@
     <title>Planes Claro</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { background: #111111; color: white; font-family: 'Segoe UI', Arial, sans-serif; }
+
+        :root {
+            --acento: #cc0000;
+            --acento-dark: #aa0000;
+            --acento-glow: var(--acento-glow);
+            --bg: #111111;
+            --bg2: #1a1a1a;
+            --card: #1c1c1c;
+            --card2: #141414;
+            --border: #2a2a2a;
+            --text: #ffffff;
+            --text2: #888888;
+            --text3: #999999;
+            --precio-bg1: #1a1a1a;
+            --precio-bg2: #111111;
+            --precio-border: #2a2a2a;
+        }
+        body.tema-claro {
+            --bg: #f0f0f0;
+            --bg2: #e4e4e4;
+            --card: #ffffff;
+            --card2: #f5f5f5;
+            --border: #cccccc;
+            --text: #111111;
+            --text2: #444444;
+            --text3: #333333;
+            --precio-bg1: #ffffff;
+            --precio-bg2: #ffffff;
+            --precio-border: #cccccc;
+        }
+        body.tema-claro .plan-tmcode,
+        body.tema-claro .beneficio-titulo,
+        body.tema-claro .desc-titulo,
+        body.tema-claro .info-item .label,
+        body.tema-claro header .titulo p { color: #333333; }
+        body.tema-claro .beneficio-item,
+        body.tema-claro .desc-item .desc-label { color: #222222; }
+        body.tema-claro .plan p { color: #333333; }
+        body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', Arial, sans-serif; transition: background 0.3s, color 0.3s; }
 
         /* INICIO */
         #inicio {
@@ -15,7 +53,7 @@
             align-items: center;
             justify-content: center;
             height: 100vh;
-            background: #0a0a0a;
+            background: var(--bg);
             text-align: center;
             gap: 20px;
             position: relative;
@@ -29,18 +67,18 @@
             transform: translate(-50%, -50%);
             width: 70%;
             height: 60%;
-            background: radial-gradient(ellipse, rgba(204,0,0,0.18) 0%, transparent 70%);
+            background: radial-gradient(ellipse, var(--acento-glow) 0%, transparent 70%);
             pointer-events: none;
         }
         #inicio > * { position: relative; z-index: 1; }
-        #inicio .linea-roja { width: 60px; height: 4px; background: #cc0000; border-radius: 2px; }
+        #inicio .linea-roja { width: 60px; height: 4px; background: var(--acento); border-radius: 2px; }
         #inicio h1 { font-size: 36px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; }
-        #inicio h1 span { color: #cc0000; }
-        #inicio p { color: #888; font-size: 15px; letter-spacing: 1px; }
+        #inicio h1 span { color: var(--acento); }
+        #inicio p { color: var(--text2); font-size: 15px; letter-spacing: 1px; }
         #inicio button {
             margin-top: 20px;
             padding: 16px 40px;
-            background: #cc0000;
+            background: var(--acento);
             color: white;
             border: none;
             border-radius: 8px;
@@ -51,7 +89,7 @@
             cursor: pointer;
             transition: background 0.3s ease, transform 0.2s ease;
         }
-        #inicio button:hover { background: #aa0000; transform: scale(1.05); }
+        #inicio button:hover { background: var(--acento-dark); transform: scale(1.05); }
 
         /* PLANES */
         #planes { display: none; }
@@ -65,16 +103,16 @@
         .buscador-wrap input {
             width: 100%;
             padding: 12px 18px;
-            background: #1c1c1c;
-            border: 1px solid #333;
+            background: var(--card);
+            border: 1px solid var(--border);
             border-radius: 8px;
-            color: white;
+            color: var(--text);
             font-size: 14px;
             outline: none;
             transition: border-color 0.3s;
         }
-        .buscador-wrap input::placeholder { color: #555; }
-        .buscador-wrap input:focus { border-color: #cc0000; }
+        .buscador-wrap input::placeholder { color: var(--text2); }
+        .buscador-wrap input:focus { border-color: var(--acento); }
         .sin-resultados {
             display: none;
             text-align: center;
@@ -85,31 +123,31 @@
         }
 
         header {
-            background: linear-gradient(135deg, #0a0a0a, #1a1a1a);
+            background: linear-gradient(135deg, var(--bg), var(--bg2));
             padding: 25px 40px;
             display: flex;
             align-items: center;
             justify-content: center;
             gap: 15px;
-            border-bottom: 2px solid #cc0000;
+            border-bottom: 2px solid var(--acento);
             text-align: center;
             position: relative;
         }
         header .titulo h1 { font-size: 22px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; }
-        header .titulo p { color: #888; font-size: 12px; letter-spacing: 1px; margin-top: 3px; }
+        header .titulo p { color: var(--text2); font-size: 12px; letter-spacing: 1px; margin-top: 3px; }
         header .volver {
             position: absolute;
             right: 40px;
             padding: 8px 20px;
             background: transparent;
-            color: #cc0000;
-            border: 1px solid #cc0000;
+            color: var(--acento);
+            border: 1px solid var(--acento);
             border-radius: 6px;
             font-size: 13px;
             cursor: pointer;
             transition: all 0.3s;
         }
-        header .volver:hover { background: #cc0000; color: white; }
+        header .volver:hover { background: var(--acento); color: white; }
 
         /* CATEGORÍAS */
         .categorias {
@@ -123,17 +161,17 @@
         .cat-btn {
             padding: 8px 20px;
             border-radius: 20px;
-            border: 1px solid #333;
+            border: 1px solid var(--border);
             background: transparent;
-            color: #aaa;
+            color: var(--text2);
             font-size: 13px;
             cursor: pointer;
             transition: all 0.3s;
             text-transform: uppercase;
             letter-spacing: 1px;
         }
-        .cat-btn:hover { border-color: #cc0000; color: white; }
-        .cat-btn.activo { background: #cc0000; border-color: #cc0000; color: white; }
+        .cat-btn:hover { border-color: var(--acento); color: var(--acento); }
+        .cat-btn.activo { background: var(--acento); border-color: var(--acento); color: white; }
 
         .contenido { padding: 30px 40px; max-width: 1400px; margin: auto; }
         .seccion { margin-bottom: 40px; }
@@ -142,10 +180,10 @@
 
         /* TARJETA */
         .plan {
-            background: #1c1c1c;
+            background: var(--card);
             border-radius: 12px;
             width: 280px;
-            border: 1px solid #2a2a2a;
+            border: 1px solid var(--border);
             position: relative;
             transition: transform 0.3s ease, box-shadow 0.3s ease;
             overflow: hidden;
@@ -161,7 +199,7 @@
             left: 10%;
             width: 80%;
             height: 6px;
-            background: radial-gradient(ellipse, #cc0000 0%, transparent 70%);
+            background: radial-gradient(ellipse, var(--acento) 0%, transparent 70%);
             border-radius: 50%;
             opacity: 0;
             transition: opacity 0.3s ease;
@@ -174,20 +212,21 @@
         .plan-banner {
             padding: 18px 18px 14px;
         }
-        .plan-tmcode { font-size: 10px; color: #666; letter-spacing: 1px; margin-bottom: 4px; }
-        .plan-nombre { color: #cc0000; font-size: 13px; font-weight: 700; margin-bottom: 12px; }
+        .plan-tmcode { font-size: 10px; color: var(--text2); letter-spacing: 1px; margin-bottom: 4px; }
+        .plan-nombre { color: var(--acento); font-size: 13px; font-weight: 700; margin-bottom: 12px; }
         .todo-claro-card .plan-nombre { color: #b8860b; }
         .precio {
-            background: linear-gradient(145deg, #1a0000, #2a0000);
+            background: linear-gradient(145deg, var(--precio-bg1), var(--precio-bg2));
             text-align: center;
             padding: 12px;
             border-radius: 8px;
             margin-bottom: 12px;
             font-size: 26px;
             font-weight: bold;
-            border: 1px solid #3a0000;
+            border: 1px solid var(--acento);
+            box-shadow: 0 0 8px var(--acento-glow), inset 0 0 8px var(--acento-glow);
         }
-        .todo-claro-card .precio { background: linear-gradient(145deg, #1a1000, #2a1800); border-color: #3a2800; }
+        .todo-claro-card .precio { background: linear-gradient(145deg, var(--precio-bg1), var(--precio-bg2)); border-color: #b8860b; color: var(--text); box-shadow: 0 0 8px rgba(184,134,11,0.3), inset 0 0 8px rgba(184,134,11,0.15); }
 
         .info-rapida {
             display: grid;
@@ -196,20 +235,20 @@
             margin-bottom: 12px;
         }
         .info-item {
-            background: #141414;
+            background: var(--card2);
             border-radius: 6px;
             padding: 7px 8px;
             font-size: 11px;
         }
-        .info-item .label { color: #666; font-size: 10px; margin-bottom: 2px; }
-        .info-item .valor { color: #ddd; font-weight: 600; }
+        .info-item .label { color: var(--text2); font-size: 10px; margin-bottom: 2px; }
+        .info-item .valor { color: var(--text); font-weight: 600; }
 
         .btn-beneficios {
             width: 100%;
             padding: 10px;
             background: transparent;
-            border: 1px solid #333;
-            color: #aaa;
+            border: 1px solid var(--border);
+            color: var(--text2);
             border-radius: 6px;
             font-size: 12px;
             cursor: pointer;
@@ -217,8 +256,8 @@
             transition: all 0.3s;
             text-transform: uppercase;
         }
-        .btn-beneficios:hover { border-color: #cc0000; color: white; background: #1a0000; }
-        .todo-claro-card .btn-beneficios:hover { border-color: #b8860b; background: #1a1000; }
+        .btn-beneficios:hover { border-color: var(--acento); color: #ffffff; background: var(--acento); }
+        .todo-claro-card .btn-beneficios:hover { border-color: #b8860b; background: #b8860b; color: #ffffff; }
 
         /* MODAL DE BENEFICIOS */
         .modal-overlay {
@@ -236,13 +275,13 @@
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
         .modal {
-            background: #1c1c1c;
+            background: var(--card);
             border-radius: 14px;
             width: 420px;
             max-width: 90vw;
             max-height: 80vh;
             overflow-y: auto;
-            border: 1px solid #2a2a2a;
+            border: 1px solid var(--border);
             animation: slideUp 0.25s ease;
         }
         .modal.todo-claro-modal { border-color: #b8860b; }
@@ -250,23 +289,23 @@
 
         .modal-header {
             padding: 20px 20px 16px;
-            border-bottom: 1px solid #2a2a2a;
+            border-bottom: 1px solid var(--border);
             display: flex;
             align-items: flex-start;
             justify-content: space-between;
             position: sticky;
             top: 0;
-            background: #1c1c1c;
+            background: var(--card);
             border-radius: 14px 14px 0 0;
         }
-        .modal-header .modal-titulo { color: #cc0000; font-size: 15px; font-weight: 700; }
+        .modal-header .modal-titulo { color: var(--acento); font-size: 15px; font-weight: 700; }
         .modal.todo-claro-modal .modal-header .modal-titulo { color: #b8860b; }
-        .modal-header .modal-tmcode { font-size: 10px; color: #666; margin-top: 3px; }
+        .modal-header .modal-tmcode { font-size: 10px; color: var(--text2); margin-top: 3px; }
         .modal-header .modal-precio { font-size: 22px; font-weight: bold; margin-top: 6px; }
         .modal-cerrar {
             background: transparent;
             border: none;
-            color: #666;
+            color: var(--text2);
             font-size: 22px;
             cursor: pointer;
             padding: 0 4px;
@@ -278,22 +317,22 @@
         .modal-body { padding: 18px 20px 22px; }
 
         .beneficio-grupo { margin-bottom: 16px; }
-        .beneficio-titulo { font-size: 10px; color: #666; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 8px; }
-        .beneficio-item { font-size: 13px; color: #bbb; padding: 4px 0; display: flex; align-items: center; gap: 8px; }
-        .beneficio-item::before { content: '•'; color: #cc0000; font-size: 16px; flex-shrink: 0; }
+        .beneficio-titulo { font-size: 10px; color: var(--text2); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 8px; }
+        .beneficio-item { font-size: 13px; color: var(--text3); padding: 4px 0; display: flex; align-items: center; gap: 8px; }
+        .beneficio-item::before { content: '•'; color: var(--acento); font-size: 16px; flex-shrink: 0; }
         .todo-claro-modal .beneficio-item::before { color: #b8860b; }
 
         .descuentos { margin-top: 4px; }
-        .desc-titulo { font-size: 10px; color: #666; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 8px; }
+        .desc-titulo { font-size: 10px; color: var(--text2); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 8px; }
         .desc-item {
-            background: #141414;
+            background: var(--card2);
             border-radius: 6px;
             padding: 10px 12px;
             margin-bottom: 8px;
             font-size: 12px;
         }
-        .desc-item .desc-label { color: #888; margin-bottom: 3px; }
-        .desc-item .desc-precio { color: #cc0000; font-weight: 700; font-size: 16px; }
+        .desc-item .desc-label { color: var(--text2); margin-bottom: 3px; }
+        .desc-item .desc-precio { color: var(--acento); font-weight: 700; font-size: 16px; }
 
         .badge-especial {
             display: inline-block;
@@ -309,12 +348,235 @@
             right: 12px;
         }
 
+        /* BOTÓN PERSONALIZAR FLOTANTE */
+        .btn-personalizar {
+            position: fixed;
+            bottom: 28px;
+            right: 28px;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: var(--acento);
+            color: white;
+            border: none;
+            font-size: 22px;
+            cursor: pointer;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.35s ease;
+        }
+        .btn-personalizar.abierto { transform: rotate(90deg); }
+
+        /* MENÚ FLOTANTE */
+        .menu-personalizar {
+            position: fixed;
+            bottom: 90px;
+            right: 28px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            align-items: flex-end;
+            z-index: 999;
+            pointer-events: none;
+        }
+        .menu-personalizar-seccion {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 14px 16px;
+            width: 230px;
+            transform: translateY(20px) scale(0.95);
+            opacity: 0;
+            transition: all 0.3s ease;
+            pointer-events: none;
+        }
+        .menu-personalizar-seccion.visible {
+            transform: translateY(0) scale(1);
+            opacity: 1;
+            pointer-events: all;
+        }
+        .menu-personalizar-seccion.visible:nth-child(2) { transition-delay: 0.05s; }
+        .menu-sec-label { font-size: 10px; color: var(--text2); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 10px; }
+
+        /* TOGGLE TEMA */
+        .tema-toggle { display: flex; background: var(--card2); border-radius: 6px; padding: 3px; gap: 3px; }
+        .tema-btn { flex: 1; padding: 7px; border: none; border-radius: 5px; background: transparent; color: var(--text2); font-size: 12px; cursor: pointer; transition: all 0.2s; }
+        .tema-btn.activo { background: var(--acento); color: white; }
+
+        /* PALETA */
+        .paleta { display: flex; flex-wrap: wrap; gap: 8px; }
+        .color-btn { width: 28px; height: 28px; border-radius: 50%; border: 2px solid transparent; cursor: pointer; transition: transform 0.2s; }
+        .color-btn:hover { transform: scale(1.15); }
+        .color-btn.seleccionado { border-color: var(--text); }
+
+        /* MODAL FACTURACIÓN */
+        .modal-facturacion {
+            display: none;
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: rgba(0,0,0,0.75);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+            overflow-y: auto;
+            padding: 20px;
+        }
+        .modal-facturacion.abierto { display: flex; }
+        .modal-facturacion-box {
+            background: var(--card);
+            border-radius: 14px;
+            width: 500px;
+            max-width: 95vw;
+            border: 1px solid var(--border);
+            animation: slideUp 0.25s ease;
+        }
+        .modal-facturacion-header {
+            padding: 18px 20px;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .modal-facturacion-header h3 { font-size: 14px; letter-spacing: 2px; text-transform: uppercase; color: var(--text); }
+        .modal-facturacion-body { padding: 20px; }
+
+        /* BUSCADOR DE PLANES */
+        .fact-buscador-wrap { position: relative; margin-bottom: 14px; }
+        .fact-buscador-wrap input {
+            width: 100%;
+            padding: 11px 16px;
+            background: var(--card2);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            color: var(--text);
+            font-size: 14px;
+            outline: none;
+            transition: border-color 0.3s;
+        }
+        .fact-buscador-wrap input:focus { border-color: var(--acento); }
+        .fact-buscador-wrap input::placeholder { color: var(--text2); }
+        .fact-sugerencias {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0; right: 0;
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            margin-top: 4px;
+            z-index: 10;
+            max-height: 200px;
+            overflow-y: auto;
+        }
+        .fact-sugerencias.visible { display: block; }
+        .fact-sugerencia-item {
+            padding: 10px 14px;
+            cursor: pointer;
+            font-size: 13px;
+            color: var(--text);
+            border-bottom: 1px solid var(--border);
+            transition: background 0.2s;
+        }
+        .fact-sugerencia-item:last-child { border-bottom: none; }
+        .fact-sugerencia-item:hover { background: var(--card2); }
+        .fact-sugerencia-item .sug-precio { color: var(--acento); font-weight: 600; font-size: 12px; margin-top: 2px; }
+
+        /* FECHA */
+        .fact-fecha-wrap { margin-bottom: 16px; }
+        .fact-fecha-wrap label { font-size: 12px; color: var(--text2); display: block; margin-bottom: 6px; letter-spacing: 1px; }
+        .fact-fecha-wrap input[type="date"] {
+            width: 100%;
+            padding: 11px 16px;
+            background: var(--card2);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            color: var(--text);
+            font-size: 14px;
+            outline: none;
+            transition: border-color 0.3s;
+        }
+        .fact-fecha-wrap input[type="date"]:focus { border-color: var(--acento); }
+
+        /* BOTÓN CALCULAR */
+        .btn-calcular {
+            width: 100%;
+            padding: 12px;
+            background: var(--acento);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            letter-spacing: 1px;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-transform: uppercase;
+            margin-bottom: 20px;
+        }
+        .btn-calcular:hover { opacity: 0.85; }
+
+        /* TARJETA RESULTADO */
+        .tarjeta-factura {
+            display: none;
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid var(--border);
+        }
+        .tarjeta-factura.visible { display: block; }
+        .tarjeta-header {
+            background: var(--acento);
+            padding: 16px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .tarjeta-header .th-left .th-empresa { font-size: 10px; color: rgba(255,255,255,0.7); letter-spacing: 2px; text-transform: uppercase; }
+        .tarjeta-header .th-left .th-plan { font-size: 16px; font-weight: 600; color: white; margin-top: 3px; }
+        .tarjeta-header .th-right { text-align: right; }
+        .tarjeta-header .th-right .th-label { font-size: 10px; color: rgba(255,255,255,0.7); }
+        .tarjeta-header .th-right .th-fecha { font-size: 15px; font-weight: 500; color: white; margin-top: 2px; }
+
+        .tarjeta-fechas {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 1px;
+            background: var(--border);
+            border-bottom: 1px solid var(--border);
+        }
+        .fecha-bloque {
+            background: var(--card2);
+            padding: 12px 14px;
+            text-align: center;
+        }
+        .fecha-bloque .fb-icon { font-size: 18px; margin-bottom: 4px; }
+        .fecha-bloque .fb-label { font-size: 10px; color: var(--text2); margin-bottom: 4px; letter-spacing: 1px; }
+        .fecha-bloque .fb-fecha { font-size: 14px; font-weight: 600; color: var(--text); }
+
+        .tarjeta-tabla { padding: 16px; }
+        .tabla-titulo { font-size: 10px; color: var(--text2); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 10px; }
+        .tabla-row {
+            display: grid;
+            grid-template-columns: 0.8fr 1fr 1fr 1fr;
+            padding: 8px 10px;
+            border-radius: 6px;
+            margin-bottom: 4px;
+            font-size: 13px;
+        }
+        .tabla-row.header { color: var(--text2); font-size: 11px; letter-spacing: 1px; }
+        .tabla-row.descuento { background: var(--card2); color: var(--text); }
+        .tabla-row.fijo { color: var(--text2); }
+        .tabla-row .col-desc { color: var(--acento); font-weight: 600; }
+        .tabla-row .col-precio-desc { color: var(--acento); font-weight: 700; }
+
         /* BOTÓN CONTRATOS */
         .btn-contratos {
             padding: 8px 20px;
             background: transparent;
-            color: #aaa;
-            border: 1px solid #333;
+            color: var(--text2);
+            border: 1px solid var(--border);
             border-radius: 20px;
             font-size: 13px;
             cursor: pointer;
@@ -322,7 +584,7 @@
             text-transform: uppercase;
             letter-spacing: 1px;
         }
-        .btn-contratos:hover { border-color: #cc0000; color: white; }
+        .btn-contratos:hover { border-color: var(--acento); color: var(--acento); }
 
         /* MODAL CONTRATOS */
         .modal-contratos {
@@ -337,17 +599,17 @@
         }
         .modal-contratos.abierto { display: flex; }
         .modal-contratos-box {
-            background: #1c1c1c;
+            background: var(--card);
             border-radius: 14px;
             width: 400px;
             max-width: 90vw;
-            border: 1px solid #2a2a2a;
+            border: 1px solid var(--border);
             overflow: hidden;
             animation: slideUp 0.25s ease;
         }
         .modal-contratos-header {
             padding: 20px;
-            border-bottom: 1px solid #2a2a2a;
+            border-bottom: 1px solid var(--border);
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -359,17 +621,17 @@
             align-items: center;
             gap: 14px;
             padding: 14px 16px;
-            background: #141414;
+            background: var(--card2);
             border-radius: 8px;
-            border: 1px solid #2a2a2a;
+            border: 1px solid var(--border);
             text-decoration: none;
             color: white;
             transition: all 0.3s;
         }
-        .contrato-item:hover { border-color: #cc0000; background: #1a0000; }
+        .contrato-item:hover { border-color: var(--acento); background: var(--precio-bg1); }
         .contrato-item .icono { font-size: 22px; }
         .contrato-item .info .nombre { font-size: 14px; font-weight: 600; }
-        .contrato-item .info .tipo { font-size: 11px; color: #666; margin-top: 2px; }
+        .contrato-item .info .tipo { font-size: 11px; color: var(--text2); margin-top: 2px; }
     </style>
 </head>
 <body>
@@ -407,6 +669,7 @@
         <button class="cat-btn" onclick="filtrar('streaming', this)">Streaming</button>
         <button class="cat-btn" onclick="filtrar('power', this)">Power</button>
         <button class="btn-contratos" onclick="abrirContratos()">📄 Contratos</button>
+        <button class="btn-contratos" onclick="abrirFacturacion()">📅 Facturación</button>
     </div>
 
     <div class="contenido">
@@ -1481,6 +1744,98 @@
 
         </div>
     </div>
+    <!-- BOTÓN FLOTANTE PERSONALIZAR -->
+    <button class="btn-personalizar" id="btn-personalizar" onclick="togglePersonalizar()" title="Personalizar">⚙️</button>
+
+</div>
+
+<!-- MODAL FACTURACIÓN -->
+<div class="modal-facturacion" id="modal-facturacion" onclick="cerrarFacturacionFuera(event)">
+    <div class="modal-facturacion-box">
+        <div class="modal-facturacion-header">
+            <h3>📅 Facturación</h3>
+            <button class="modal-cerrar" onclick="cerrarFacturacion()">✕</button>
+        </div>
+        <div class="modal-facturacion-body">
+
+            <div class="fact-buscador-wrap">
+                <input type="text" id="fact-buscador" placeholder="🔍  Buscar plan por nombre, TMCODE o precio..." oninput="buscarPlanFact()" autocomplete="off">
+                <div class="fact-sugerencias" id="fact-sugerencias"></div>
+            </div>
+
+            <div class="fact-fecha-wrap">
+                <label>FECHA DE ACTIVACIÓN</label>
+                <input type="date" id="fact-fecha">
+            </div>
+
+            <button class="btn-calcular" onclick="calcularFacturacion()">Generar tarjeta</button>
+
+            <div class="tarjeta-factura" id="tarjeta-factura">
+                <div class="tarjeta-header">
+                    <div class="th-left">
+                        <div class="th-empresa">Claro Colombia</div>
+                        <div class="th-plan" id="tf-plan">—</div>
+                    </div>
+                    <div class="th-right">
+                        <div class="th-label">Activación</div>
+                        <div class="th-fecha" id="tf-activacion">—</div>
+                    </div>
+                </div>
+                <div class="tarjeta-fechas">
+                    <div class="fecha-bloque">
+                        <div class="fb-icon">📄</div>
+                        <div class="fb-label">LLEGA FACTURA</div>
+                        <div class="fb-fecha" id="tf-factura">—</div>
+                    </div>
+                    <div class="fecha-bloque">
+                        <div class="fb-icon">⏰</div>
+                        <div class="fb-label">LÍMITE DE PAGO</div>
+                        <div class="fb-fecha" id="tf-limite">—</div>
+                    </div>
+                    <div class="fecha-bloque">
+                        <div class="fb-icon">🔄</div>
+                        <div class="fb-label">RENUEVA GB</div>
+                        <div class="fb-fecha" id="tf-renueva">—</div>
+                    </div>
+                </div>
+                <div class="tarjeta-tabla">
+                    <div class="tabla-titulo">Resumen de pagos</div>
+                    <div class="tabla-row header">
+                        <div>Mes</div><div>Factura</div><div>Descuento</div><div>Valor</div>
+                    </div>
+                    <div id="tf-filas"></div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<!-- MODAL PERSONALIZAR -->
+<!-- MENÚ PERSONALIZAR FLOTANTE -->
+<div class="menu-personalizar" id="menu-personalizar">
+    <div class="menu-personalizar-seccion" id="sec-tema">
+        <div class="menu-sec-label">Tema</div>
+        <div class="tema-toggle">
+            <button class="tema-btn activo" id="btn-oscuro" onclick="setTema('oscuro')">🌙 Oscuro</button>
+            <button class="tema-btn" id="btn-claro" onclick="setTema('claro')">☀️ Claro</button>
+        </div>
+    </div>
+    <div class="menu-personalizar-seccion" id="sec-color">
+        <div class="menu-sec-label">Color de acento</div>
+        <div class="paleta">
+            <button class="color-btn seleccionado" style="background:#cc0000" onclick="setColor('#cc0000','#aa0000','rgba(204,0,0,0.18)', this)" title="Rojo Claro"></button>
+            <button class="color-btn" style="background:#1a73e8" onclick="setColor('#1a73e8','#1558b0','rgba(26,115,232,0.18)', this)" title="Azul"></button>
+            <button class="color-btn" style="background:#7c3aed" onclick="setColor('#7c3aed','#6025c4','rgba(124,58,237,0.18)', this)" title="Morado"></button>
+            <button class="color-btn" style="background:#16a34a" onclick="setColor('#16a34a','#15803d','rgba(22,163,74,0.18)', this)" title="Verde"></button>
+            <button class="color-btn" style="background:#ea580c" onclick="setColor('#ea580c','#c2410c','rgba(234,88,12,0.18)', this)" title="Naranja"></button>
+            <button class="color-btn" style="background:#db2777" onclick="setColor('#db2777','#be185d','rgba(219,39,119,0.18)', this)" title="Rosa"></button>
+            <button class="color-btn" style="background:#0891b2" onclick="setColor('#0891b2','#0e7490','rgba(8,145,178,0.18)', this)" title="Celeste"></button>
+            <button class="color-btn" style="background:#b45309" onclick="setColor('#b45309','#92400e','rgba(180,83,9,0.18)', this)" title="Amarillo dorado"></button>
+            <button class="color-btn" style="background:#9ca3af" onclick="setColor('#9ca3af','#6b7280','rgba(156,163,175,0.18)', this)" title="Gris plata"></button>
+            <button class="color-btn" style="background:#ffffff; border-color:#aaa;" onclick="setColor('#ffffff','#cccccc','rgba(255,255,255,0.18)', this)" title="Blanco"></button>
+        </div>
+    </div>
 </div>
 
 <!-- MODAL CONTRATOS -->
@@ -1578,6 +1933,208 @@
             document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('activo'));
         }
     }
+    // FACTURACIÓN
+    const planesData = [
+        { tmcode: '36793', nombre: 'Conectados 26 E 4.1', precio: 41900, descuento: 'ninguno' },
+        { tmcode: '37217', nombre: 'Conectados 26.1 E 46.9_AP1', precio: 46900, descuento: 'ninguno' },
+        { tmcode: '37212', nombre: 'Conectados 26.1 V 44.9', precio: 44900, descuento: '50-mes1' },
+        { tmcode: '38079', nombre: 'Conectados 26.1 E 46.9', precio: 46900, descuento: '50-mes1' },
+        { tmcode: '37368', nombre: 'Conectados 26.1 E 49.9_AP1', precio: 49900, descuento: '25-mes1y2' },
+        { tmcode: '38081', nombre: 'Conectados 26.1 V 53.9', precio: 53900, descuento: '25-mes1y2' },
+        { tmcode: '38082', nombre: 'Conectados 26.1 V 55.9_EC', precio: 55900, descuento: '25-mes1y2' },
+        { tmcode: '38083', nombre: 'Conectados 26.1 V 55.9_CN', precio: 55900, descuento: '25-mes1y2' },
+        { tmcode: '38084', nombre: 'Conectados 26.1 V 56.9_AP1', precio: 56900, descuento: '25-mes1y2' },
+        { tmcode: '37224', nombre: 'Conectados 26.1 V 65.9 LO_TM_AP1', precio: 65900, descuento: '25-mes1y2' },
+        { tmcode: '37223', nombre: 'Conectados 26.1 V 65.9 LO_TS_AP1', precio: 65900, descuento: '25-mes1y2' },
+        { tmcode: '37222', nombre: 'Conectados 26.1 V 65.9 LO_MM_AP1', precio: 65900, descuento: '25-mes1y2' },
+        { tmcode: '37227', nombre: 'Conectados 26.1 V 75.9 LO_TM_AP1', precio: 75900, descuento: '25-mes1y2' },
+        { tmcode: '37226', nombre: 'Conectados 26.1 V 75.9 LO_TS_AP1', precio: 75900, descuento: '25-mes1y2' },
+        { tmcode: '37225', nombre: 'Conectados 26.1 V 75.9 LO_MM_AP1', precio: 75900, descuento: '25-mes1y2' },
+        { tmcode: '37230', nombre: 'Conectados 26.1 V 99.9 LO_TM_AP1L', precio: 99900, descuento: '25-mes1y2' },
+        { tmcode: '37229', nombre: 'Conectados 26.1 V 99.9 LO_TS_AP1L', precio: 99900, descuento: '25-mes1y2' },
+        { tmcode: '37228', nombre: 'Conectados 26.1 V 99.9 LO_MM_AP1L', precio: 99900, descuento: '25-mes1y2' },
+        { tmcode: '38183', nombre: 'Paquete Power 26.2 V 44.9', precio: 44900, descuento: 'ninguno' },
+        { tmcode: '38085', nombre: 'Paquete Power 26.1 V 46.9', precio: 46900, descuento: 'ninguno' },
+        { tmcode: '37289', nombre: 'Paquete Power 26.1 V 53.9', precio: 53900, descuento: 'ninguno' },
+        { tmcode: '35086', nombre: 'Conectados Win 25.2 V 6.1', precio: 60900, descuento: 'ninguno' },
+        { tmcode: '32091', nombre: 'Conectados Netflix 25 E 6.2', precio: 68900, descuento: 'ninguno' },
+        { tmcode: '32092', nombre: 'Conectados Netflix 25 E 6.3', precio: 71900, descuento: 'ninguno' },
+        { tmcode: '32093', nombre: 'Conectados Netflix 25 E 7.1', precio: 72900, descuento: 'ninguno' },
+        { tmcode: '32094', nombre: 'Conectados Netflix 25 E 7.2', precio: 75900, descuento: 'ninguno' },
+        { tmcode: '29009', nombre: 'Conectados Netflix 25 E 7.3', precio: 77900, descuento: 'ninguno' },
+        { tmcode: '32101', nombre: 'Conectados Netflix 25 E 7.5', precio: 79900, descuento: 'ninguno' },
+        { tmcode: '28990', nombre: 'Conectados Netflix 25 E 11.1', precio: 118900, descuento: 'ninguno' },
+        { tmcode: '32108', nombre: 'Conectados Disney 25 V 9.1', precio: 93900, descuento: 'ninguno' },
+    ];
+
+    let planSeleccionado = null;
+
+    function formatFecha(date) {
+        const meses = ['ene','feb','mar','abr','may','jun','jul','ago','sep','oct','nov','dic'];
+        return `${date.getDate()} ${meses[date.getMonth()]} ${date.getFullYear()}`;
+    }
+
+    function formatPrecio(valor) {
+        return '$' + valor.toLocaleString('es-CO');
+    }
+
+    function sumarDias(date, dias) {
+        const d = new Date(date);
+        d.setDate(d.getDate() + dias);
+        return d;
+    }
+
+    function sumarMeses(date, meses) {
+        const d = new Date(date);
+        d.setMonth(d.getMonth() + meses);
+        return d;
+    }
+
+    function buscarPlanFact() {
+        const texto = document.getElementById('fact-buscador').value.toLowerCase().trim();
+        const sugerencias = document.getElementById('fact-sugerencias');
+        if (!texto) { sugerencias.classList.remove('visible'); return; }
+        const resultados = planesData.filter(p =>
+            p.nombre.toLowerCase().includes(texto) ||
+            p.tmcode.includes(texto) ||
+            p.precio.toString().includes(texto.replace(/\./g,'').replace(/\$/g,''))
+        ).slice(0, 6);
+        if (!resultados.length) { sugerencias.classList.remove('visible'); return; }
+        sugerencias.innerHTML = resultados.map(p => `
+            <div class="fact-sugerencia-item" onclick="seleccionarPlan(${planesData.indexOf(p)})">
+                <div>${p.nombre}</div>
+                <div class="sug-precio">TMCODE: ${p.tmcode} — ${formatPrecio(p.precio)}</div>
+            </div>
+        `).join('');
+        sugerencias.classList.add('visible');
+    }
+
+    function seleccionarPlan(idx) {
+        planSeleccionado = planesData[idx];
+        document.getElementById('fact-buscador').value = `${planSeleccionado.nombre} — ${formatPrecio(planSeleccionado.precio)}`;
+        document.getElementById('fact-sugerencias').classList.remove('visible');
+    }
+
+    function calcularFacturacion() {
+        if (!planSeleccionado) { alert('Por favor selecciona un plan'); return; }
+        const fechaStr = document.getElementById('fact-fecha').value;
+        if (!fechaStr) { alert('Por favor ingresa la fecha de activación'); return; }
+
+        const activacion = new Date(fechaStr + 'T12:00:00');
+        const llegaFactura = sumarDias(activacion, 4);
+        const limitePago = sumarDias(activacion, 15);
+        const renuevaGB = sumarMeses(activacion, 1);
+
+        document.getElementById('tf-plan').textContent = planSeleccionado.nombre;
+        document.getElementById('tf-activacion').textContent = formatFecha(activacion);
+        document.getElementById('tf-factura').textContent = formatFecha(llegaFactura);
+        document.getElementById('tf-limite').textContent = formatFecha(limitePago);
+        document.getElementById('tf-renueva').textContent = formatFecha(renuevaGB);
+
+        const precio = planSeleccionado.precio;
+        const desc = planSeleccionado.descuento;
+        let filas = '';
+
+        if (desc === '50-mes1') {
+            const p1 = Math.round(precio * 0.5);
+            filas += `<div class="tabla-row descuento"><div>Mes 1</div><div>${formatFecha(llegaFactura)}</div><div class="col-desc">50%</div><div class="col-precio-desc">${formatPrecio(p1)}</div></div>`;
+            filas += `<div class="tabla-row fijo"><div>Mes 2 en adelante</div><div>Día ${llegaFactura.getDate()} c/mes</div><div>—</div><div>${formatPrecio(precio)}</div></div>`;
+        } else if (desc === '25-mes1y2') {
+            const p1 = Math.round(precio * 0.75);
+            const f2 = sumarMeses(llegaFactura, 1);
+            filas += `<div class="tabla-row descuento"><div>Mes 1</div><div>${formatFecha(llegaFactura)}</div><div class="col-desc">25%</div><div class="col-precio-desc">${formatPrecio(p1)}</div></div>`;
+            filas += `<div class="tabla-row descuento"><div>Mes 2</div><div>${formatFecha(f2)}</div><div class="col-desc">25%</div><div class="col-precio-desc">${formatPrecio(p1)}</div></div>`;
+            filas += `<div class="tabla-row fijo"><div>Mes 3 en adelante</div><div>Día ${llegaFactura.getDate()} c/mes</div><div>—</div><div>${formatPrecio(precio)}</div></div>`;
+        } else {
+            filas += `<div class="tabla-row fijo"><div>Mes 1 en adelante</div><div>${formatFecha(llegaFactura)}</div><div>—</div><div>${formatPrecio(precio)}</div></div>`;
+        }
+
+        document.getElementById('tf-filas').innerHTML = filas;
+        document.getElementById('tarjeta-factura').classList.add('visible');
+    }
+
+    function abrirFacturacion() {
+        document.getElementById('modal-facturacion').classList.add('abierto');
+        document.body.style.overflow = 'hidden';
+    }
+    function cerrarFacturacion() {
+        document.getElementById('modal-facturacion').classList.remove('abierto');
+        document.body.style.overflow = '';
+        planSeleccionado = null;
+        document.getElementById('fact-buscador').value = '';
+        document.getElementById('fact-fecha').value = '';
+        document.getElementById('tarjeta-factura').classList.remove('visible');
+    }
+    function cerrarFacturacionFuera(e) {
+        if (e.target === document.getElementById('modal-facturacion')) cerrarFacturacion();
+    }
+
+    // PERSONALIZACIÓN
+    const colores = {
+        '#cc0000': ['#aa0000', 'rgba(204,0,0,0.18)'],
+        '#1a73e8': ['#1558b0', 'rgba(26,115,232,0.18)'],
+        '#7c3aed': ['#6025c4', 'rgba(124,58,237,0.18)'],
+        '#16a34a': ['#15803d', 'rgba(22,163,74,0.18)'],
+        '#ea580c': ['#c2410c', 'rgba(234,88,12,0.18)'],
+        '#db2777': ['#be185d', 'rgba(219,39,119,0.18)'],
+        '#0891b2': ['#0e7490', 'rgba(8,145,178,0.18)'],
+        '#b45309': ['#92400e', 'rgba(180,83,9,0.18)'],
+        '#9ca3af': ['#6b7280', 'rgba(156,163,175,0.18)'],
+        '#ffffff': ['#cccccc', 'rgba(255,255,255,0.18)'],
+    };
+
+    function setTema(tema) {
+        document.body.classList.toggle('tema-claro', tema === 'claro');
+        document.getElementById('btn-oscuro').classList.toggle('activo', tema === 'oscuro');
+        document.getElementById('btn-claro').classList.toggle('activo', tema === 'claro');
+        localStorage.setItem('claro-tema', tema);
+    }
+
+    function setColor(acento, acentoDark, acentoGlow, btn) {
+        const root = document.documentElement;
+        root.style.setProperty('--acento', acento);
+        root.style.setProperty('--acento-dark', acentoDark);
+        root.style.setProperty('--acento-glow', acentoGlow);
+        root.style.setProperty('--precio-bg1', '#1a1a1a');
+        root.style.setProperty('--precio-bg2', '#111111');
+        root.style.setProperty('--precio-border', '#2a2a2a');
+        document.querySelectorAll('.color-btn').forEach(b => b.classList.remove('seleccionado'));
+        btn.classList.add('seleccionado');
+        localStorage.setItem('claro-color', acento);
+    }
+
+    function cargarPreferencias() {
+        const tema = localStorage.getItem('claro-tema') || 'oscuro';
+        setTema(tema);
+        const color = localStorage.getItem('claro-color') || '#cc0000';
+        const [dark, glow] = colores[color] || ['#aa0000', 'rgba(204,0,0,0.18)'];
+        const btn = [...document.querySelectorAll('.color-btn')].find(b => b.style.background === color || b.getAttribute('onclick')?.includes(color));
+        if (btn) setColor(color, dark, glow, btn);
+    }
+
+    let menuPersonalizarAbierto = false;
+    function togglePersonalizar() {
+        menuPersonalizarAbierto = !menuPersonalizarAbierto;
+        document.getElementById('btn-personalizar').classList.toggle('abierto', menuPersonalizarAbierto);
+        document.getElementById('sec-tema').classList.toggle('visible', menuPersonalizarAbierto);
+        document.getElementById('sec-color').classList.toggle('visible', menuPersonalizarAbierto);
+        document.getElementById('menu-personalizar').style.pointerEvents = menuPersonalizarAbierto ? 'all' : 'none';
+    }
+    function cerrarPersonalizar() {
+        menuPersonalizarAbierto = false;
+        document.getElementById('btn-personalizar').classList.remove('abierto');
+        document.getElementById('sec-tema').classList.remove('visible');
+        document.getElementById('sec-color').classList.remove('visible');
+        document.getElementById('menu-personalizar').style.pointerEvents = 'none';
+    }
+    document.addEventListener('click', function(e) {
+        const menu = document.getElementById('menu-personalizar');
+        const btn = document.getElementById('btn-personalizar');
+        if (menuPersonalizarAbierto && !menu.contains(e.target) && !btn.contains(e.target)) {
+            cerrarPersonalizar();
+        }
+    });
+
     function abrirContratos() {
         document.getElementById('modal-contratos').classList.add('abierto');
         document.body.style.overflow = 'hidden';
@@ -1618,7 +2175,8 @@
         document.getElementById('modal-overlay').classList.remove('abierto');
         document.body.style.overflow = '';
     }
-    document.addEventListener('keydown', e => { if (e.key === 'Escape') cerrarModalBtn(); });
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') { cerrarModalBtn(); cerrarPersonalizar(); cerrarContratosBtn(); cerrarFacturacion(); } });
+    cargarPreferencias();
 </script>
 
 </body>
