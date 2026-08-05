@@ -312,7 +312,7 @@
             line-height: 1;
             transition: color 0.2s;
         }
-        .modal-cerrar:hover { color: white; }
+        .modal-cerrar:hover { color: var(--acento); }
 
         .modal-body { padding: 18px 20px 22px; }
 
@@ -485,11 +485,12 @@
         .fact-sugerencia-item .sug-precio { color: var(--acento); font-weight: 600; font-size: 12px; margin-top: 2px; }
 
         /* FECHA */
-        .fact-fecha-wrap { margin-bottom: 16px; }
+        .fact-fecha-wrap { margin-bottom: 16px; position: relative; }
         .fact-fecha-wrap label { font-size: 12px; color: var(--text2); display: block; margin-bottom: 6px; letter-spacing: 1px; }
-        .fact-fecha-wrap input[type="date"] {
+        .fact-fecha-input-wrap { position: relative; }
+        .fact-fecha-wrap input[type="text"] {
             width: 100%;
-            padding: 11px 16px;
+            padding: 11px 42px 11px 16px;
             background: var(--card2);
             border: 1px solid var(--border);
             border-radius: 8px;
@@ -498,7 +499,55 @@
             outline: none;
             transition: border-color 0.3s;
         }
-        .fact-fecha-wrap input[type="date"]:focus { border-color: var(--acento); }
+        .fact-fecha-wrap input[type="text"]:focus { border-color: var(--acento); }
+        .fact-fecha-wrap input[type="text"]::placeholder { color: var(--text2); }
+        .cal-toggle-btn {
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 18px;
+            line-height: 1;
+            padding: 0;
+        }
+
+        /* MINI CALENDARIO */
+        .mini-cal {
+            display: none;
+            position: absolute;
+            top: calc(100% + 6px);
+            left: 0;
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 12px;
+            z-index: 100;
+            width: 260px;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+        }
+        .mini-cal.visible { display: block; }
+        .cal-nav { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
+        .cal-nav button { background: none; border: none; color: var(--text); font-size: 16px; cursor: pointer; padding: 4px 8px; border-radius: 4px; }
+        .cal-nav button:hover { background: var(--card2); }
+        .cal-nav span { font-size: 13px; font-weight: 600; color: var(--text); }
+        .cal-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 2px; }
+        .cal-day-name { text-align: center; font-size: 10px; color: var(--text2); padding: 4px 0; letter-spacing: 1px; }
+        .cal-day {
+            text-align: center;
+            font-size: 12px;
+            padding: 6px 2px;
+            border-radius: 6px;
+            cursor: pointer;
+            color: var(--text);
+            transition: background 0.2s;
+        }
+        .cal-day:hover { background: var(--card2); }
+        .cal-day.hoy { font-weight: 700; color: var(--acento); }
+        .cal-day.seleccionado { background: var(--acento); color: white; }
+        .cal-day.vacio { cursor: default; }
 
         /* BOTÓN CALCULAR */
         .btn-calcular {
@@ -849,33 +898,6 @@
                     <div class="info-rapida">
                         <div class="info-item"><div class="label">Navegación</div><div class="valor">45 GB</div></div>
                         <div class="info-item"><div class="label">Compartir</div><div class="valor">45 GB</div></div>
-                        <div class="info-item"><div class="label">Minutos</div><div class="valor">Ilimitados</div></div>
-                        <div class="info-item"><div class="label">SMS</div><div class="valor">Ilimitados</div></div>
-                    </div>
-                    <button class="btn-beneficios" onclick="abrirBeneficios(this)">Ver beneficios ▾</button>
-                </div>
-                <div class="beneficios" style="display:none">
-                    <div class="beneficio-grupo">
-                        <div class="beneficio-titulo">Redes sociales ilimitadas</div>
-                        <div class="beneficio-item">WhatsApp, Facebook y X ilimitados</div>
-                    </div>
-                    <div class="beneficio-grupo">
-                        <div class="beneficio-titulo">Aplicaciones incluidas</div>
-                        <div class="beneficio-item">Claro Música (versión gratuita)</div>
-                        <div class="beneficio-item">Claro Drive (100 GB)</div>
-                        <div class="beneficio-item">Claro Club</div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="plan" data-cat="power" data-precio="46900">
-                <div class="plan-banner">
-                    <div class="plan-tmcode">TMCODE: 38085</div>
-                    <div class="plan-nombre">Paquete Power 26.1 V 46.9</div>
-                    <div class="precio">$46.900</div>
-                    <div class="info-rapida">
-                        <div class="info-item"><div class="label">Navegación</div><div class="valor">50 GB</div></div>
-                        <div class="info-item"><div class="label">Compartir</div><div class="valor">50 GB</div></div>
                         <div class="info-item"><div class="label">Minutos</div><div class="valor">Ilimitados</div></div>
                         <div class="info-item"><div class="label">SMS</div><div class="valor">Ilimitados</div></div>
                     </div>
@@ -1758,14 +1780,13 @@
         </div>
         <div class="modal-facturacion-body">
 
-            <div class="fact-buscador-wrap">
-                <input type="text" id="fact-buscador" placeholder="🔍  Buscar plan por nombre, TMCODE o precio..." oninput="buscarPlanFact()" autocomplete="off">
-                <div class="fact-sugerencias" id="fact-sugerencias"></div>
-            </div>
-
             <div class="fact-fecha-wrap">
                 <label>FECHA DE ACTIVACIÓN</label>
-                <input type="date" id="fact-fecha">
+                <div class="fact-fecha-input-wrap">
+                    <input type="text" id="fact-fecha" placeholder="DD/MM/YYYY" maxlength="10">
+                    <button class="cal-toggle-btn" onclick="toggleCal()" type="button">📅</button>
+                    <div class="mini-cal" id="mini-cal"></div>
+                </div>
             </div>
 
             <button class="btn-calcular" onclick="calcularFacturacion()">Generar tarjeta</button>
@@ -1774,10 +1795,10 @@
                 <div class="tarjeta-header">
                     <div class="th-left">
                         <div class="th-empresa">Claro Colombia</div>
-                        <div class="th-plan" id="tf-plan">—</div>
+                        <div class="th-plan" id="tf-plan">Información de facturación</div>
                     </div>
                     <div class="th-right">
-                        <div class="th-label">Activación</div>
+                        <div class="th-label">Activación / Corte</div>
                         <div class="th-fecha" id="tf-activacion">—</div>
                     </div>
                 </div>
@@ -1794,16 +1815,15 @@
                     </div>
                     <div class="fecha-bloque">
                         <div class="fb-icon">🔄</div>
-                        <div class="fb-label">RENUEVA GB</div>
+                        <div class="fb-label">FECHA DE CORTE</div>
                         <div class="fb-fecha" id="tf-renueva">—</div>
                     </div>
                 </div>
                 <div class="tarjeta-tabla">
-                    <div class="tabla-titulo">Resumen de pagos</div>
-                    <div class="tabla-row header">
-                        <div>Mes</div><div>Factura</div><div>Descuento</div><div>Valor</div>
+                    <div style="background: var(--card2); border-left: 3px solid var(--acento); border-radius: 0 8px 8px 0; padding: 14px 16px;">
+                        <div style="font-size: 10px; color: var(--acento); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 8px;">💬 Guión sugerido</div>
+                        <p id="tf-mensaje" style="font-size: 13px; color: var(--text); line-height: 1.7;"></p>
                     </div>
-                    <div id="tf-filas"></div>
                 </div>
             </div>
 
@@ -2015,41 +2035,96 @@
         document.getElementById('fact-sugerencias').classList.remove('visible');
     }
 
+    // MINI CALENDARIO
+    let calFecha = new Date();
+    let calVisible = false;
+
+    function toggleCal() {
+        calVisible = !calVisible;
+        const cal = document.getElementById('mini-cal');
+        if (calVisible) { renderCal(); cal.classList.add('visible'); }
+        else { cal.classList.remove('visible'); }
+    }
+
+    function renderCal() {
+        const meses = ['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'];
+        const hoy = new Date();
+        const year = calFecha.getFullYear();
+        const month = calFecha.getMonth();
+        const primerDia = new Date(year, month, 1).getDay();
+        const diasMes = new Date(year, month + 1, 0).getDate();
+        const offset = primerDia === 0 ? 6 : primerDia - 1;
+
+        let html = `
+            <div class="cal-nav">
+                <button onclick="cambiarMes(-1)">‹</button>
+                <span>${meses[month]} ${year}</span>
+                <button onclick="cambiarMes(1)">›</button>
+            </div>
+            <div class="cal-grid">
+                <div class="cal-day-name">Lu</div><div class="cal-day-name">Ma</div>
+                <div class="cal-day-name">Mi</div><div class="cal-day-name">Ju</div>
+                <div class="cal-day-name">Vi</div><div class="cal-day-name">Sa</div>
+                <div class="cal-day-name">Do</div>
+        `;
+        for (let i = 0; i < offset; i++) html += `<div class="cal-day vacio"></div>`;
+        for (let d = 1; d <= diasMes; d++) {
+            const esHoy = d === hoy.getDate() && month === hoy.getMonth() && year === hoy.getFullYear();
+            html += `<div class="cal-day${esHoy ? ' hoy' : ''}" onclick="seleccionarFecha(${d},${month+1},${year})">${d}</div>`;
+        }
+        html += '</div>';
+        document.getElementById('mini-cal').innerHTML = html;
+    }
+
+    function cambiarMes(dir) {
+        calFecha.setMonth(calFecha.getMonth() + dir);
+        renderCal();
+    }
+
+    function seleccionarFecha(d, m, y) {
+        const dd = String(d).padStart(2,'0');
+        const mm = String(m).padStart(2,'0');
+        const yy = String(y).slice(-2);
+        document.getElementById('fact-fecha').value = `${dd}/${mm}/${yy}`;
+        document.getElementById('mini-cal').classList.remove('visible');
+        calVisible = false;
+    }
+
+    document.addEventListener('click', function(e) {
+        const cal = document.getElementById('mini-cal');
+        const btn = document.querySelector('.cal-toggle-btn');
+        if (cal && btn && calVisible && !cal.contains(e.target) && !btn.contains(e.target)) {
+            cal.classList.remove('visible');
+            calVisible = false;
+        }
+    });
+
     function calcularFacturacion() {
-        if (!planSeleccionado) { alert('Por favor selecciona un plan'); return; }
-        const fechaStr = document.getElementById('fact-fecha').value;
+        const fechaStr = document.getElementById('fact-fecha').value.trim();
         if (!fechaStr) { alert('Por favor ingresa la fecha de activación'); return; }
 
-        const activacion = new Date(fechaStr + 'T12:00:00');
-        const llegaFactura = sumarDias(activacion, 4);
-        const limitePago = sumarDias(activacion, 15);
-        const renuevaGB = sumarMeses(activacion, 1);
+        const partes = fechaStr.split('/');
+        if (partes.length !== 3) { alert('Formato incorrecto. Usa DD/MM/YY, por ejemplo: 05/08/25'); return; }
 
-        document.getElementById('tf-plan').textContent = planSeleccionado.nombre;
+        const dia = parseInt(partes[0]);
+        const mes = parseInt(partes[1]) - 1;
+        const anio = 2000 + parseInt(partes[2]);
+
+        const activacion = new Date(anio, mes, dia, 12, 0, 0);
+        if (isNaN(activacion.getTime())) { alert('Fecha inválida. Verifica el formato DD/MM/YY'); return; }
+
+        const llegaFactura = sumarDias(activacion, 6);
+        const limitePago = sumarDias(activacion, 15);
+        const fechaCorte = sumarMeses(activacion, 1);
+
+        document.getElementById('tf-plan').textContent = 'Información de facturación';
         document.getElementById('tf-activacion').textContent = formatFecha(activacion);
         document.getElementById('tf-factura').textContent = formatFecha(llegaFactura);
         document.getElementById('tf-limite').textContent = formatFecha(limitePago);
-        document.getElementById('tf-renueva').textContent = formatFecha(renuevaGB);
+        document.getElementById('tf-renueva').textContent = formatFecha(fechaCorte);
 
-        const precio = planSeleccionado.precio;
-        const desc = planSeleccionado.descuento;
-        let filas = '';
+        document.getElementById('tf-mensaje').textContent = 'Para que tenga claras las fechas de su servicio: el día que activemos su línea será también su fecha de corte, por lo que ese mismo día de cada mes se renovarán los servicios de su plan. Exactamente 7 días después de la activación recibirá su factura y tendrá hasta 15 días después de la activación para realizar el pago. ¿Quedó claro, sí o no?';
 
-        if (desc === '50-mes1') {
-            const p1 = Math.round(precio * 0.5);
-            filas += `<div class="tabla-row descuento"><div>Mes 1</div><div>${formatFecha(llegaFactura)}</div><div class="col-desc">50%</div><div class="col-precio-desc">${formatPrecio(p1)}</div></div>`;
-            filas += `<div class="tabla-row fijo"><div>Mes 2 en adelante</div><div>Día ${llegaFactura.getDate()} c/mes</div><div>—</div><div>${formatPrecio(precio)}</div></div>`;
-        } else if (desc === '25-mes1y2') {
-            const p1 = Math.round(precio * 0.75);
-            const f2 = sumarMeses(llegaFactura, 1);
-            filas += `<div class="tabla-row descuento"><div>Mes 1</div><div>${formatFecha(llegaFactura)}</div><div class="col-desc">25%</div><div class="col-precio-desc">${formatPrecio(p1)}</div></div>`;
-            filas += `<div class="tabla-row descuento"><div>Mes 2</div><div>${formatFecha(f2)}</div><div class="col-desc">25%</div><div class="col-precio-desc">${formatPrecio(p1)}</div></div>`;
-            filas += `<div class="tabla-row fijo"><div>Mes 3 en adelante</div><div>Día ${llegaFactura.getDate()} c/mes</div><div>—</div><div>${formatPrecio(precio)}</div></div>`;
-        } else {
-            filas += `<div class="tabla-row fijo"><div>Mes 1 en adelante</div><div>${formatFecha(llegaFactura)}</div><div>—</div><div>${formatPrecio(precio)}</div></div>`;
-        }
-
-        document.getElementById('tf-filas').innerHTML = filas;
         document.getElementById('tarjeta-factura').classList.add('visible');
     }
 
@@ -2060,8 +2135,6 @@
     function cerrarFacturacion() {
         document.getElementById('modal-facturacion').classList.remove('abierto');
         document.body.style.overflow = '';
-        planSeleccionado = null;
-        document.getElementById('fact-buscador').value = '';
         document.getElementById('fact-fecha').value = '';
         document.getElementById('tarjeta-factura').classList.remove('visible');
     }
